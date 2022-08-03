@@ -272,16 +272,14 @@ def addjob_save(request):
         passwordsent = CustomUser.objects.get(id=client).sentpassword
         # print(passwordsent)
         #mail for client rep
-        try:
-            job_model = Dataset(pvt_number=pvt_number, clientrep=clientrep, clientrep_email=clientrepmail, jobkey=jobkey,
-                                pdf=jobfile, copiedemails=copiedemails,client_id=client_id, field_id=field_id, jobstatus=jobstatus_id, laserrep_id=laser_rep_id,
-                                completed=complete, copiedemail1=copiedemails1,copiedemails2=copiedemails2, copiedemails3=copiedemails3)
-            job_model.save()
-            messages.success(request, "Job added successfully")
-            return HttpResponseRedirect(reverse("addjob"))
-        except:
-            messages.error(request, "Job add Failed")
-            return HttpResponseRedirect(reverse("addjob"))
+        job_model = Dataset(pvt_number=pvt_number, clientrep=clientrep, clientrep_email=clientrepmail, jobkey=jobkey,
+                            pdf=jobfile, copiedemails=copiedemails, client_id=client_id, field_id=field_id,
+                            jobstatus=jobstatus_id, laserrep_id=laser_rep_id,
+                            completed=complete, copiedemail1=copiedemails1, copiedemails2=copiedemails2,
+                            copiedemails3=copiedemails3)
+        job_model.save()
+        messages.success(request, "Job added successfully")
+        return HttpResponseRedirect(reverse("managejob"))
 
 def managejob(request):
     Active = Dataset.objects.filter(completed="Active").order_by("-id")

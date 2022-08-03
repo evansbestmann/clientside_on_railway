@@ -73,8 +73,6 @@ class Dataset(models.Model):
     copiedemails2 = models.EmailField()
     copiedemails3 = models.EmailField()
     pdf = models.FileField(upload_to='raw/')
-    #pdf = CloudinaryField('raw/')
-    #img = models.ImageField(upload_to='image/')
     completed = models.CharField(choices=choices, max_length=8, default="Active")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
