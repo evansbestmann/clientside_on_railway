@@ -3,8 +3,6 @@ from django.db import models
 import secrets
 from .paystack import *
 from .utils import *
-
-from cloudinary.models import CloudinaryField
 # Create your models here.
 from django.db.models.signals import post_save,pre_save ###presave for slug url function
 from django.dispatch import receiver
