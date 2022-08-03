@@ -1,0 +1,235 @@
+{% extends 'client_templates/base_template.html' %}
+{% load static %}
+{% block custom_css %}
+<style>
+.alert {
+  padding: 20px;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+{% endblock custom_css %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/client_home">Home</a></li>
+   <li class="breadcrumb-item"><a href="/viewjob">Get Job Report</a></li>
+   <li class="breadcrumb-item active">Job Feedback </li>
+ </ol>
+ <div class="container">
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div class="alert" id="box" style="background-color: orange;">
+                                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                  <strong>Note!</strong> Your feedback is needed to better our service process to you and for Audit purposes.
+                                </div>
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-body">
+                                        <form action="/feedback_save" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                            <div class="form-floating mb-3">
+                                                <input id="job" type="text" class="required form-control" value="{{jobs.pvt_number}}" name="job" placeholder="job id" readonly/>
+                                                        <label for="job">Job-ID *</label>
+
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input id="service" type="text" class="required form-control"  name="service" placeholder="description"/>
+                                                        <label for="service">Description of service *</label>
+
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                    <div class="col-sm-12">
+                                                          <table id="table1" class="table table-bordered nowrap" width="100%">
+                                                                              <thead>
+                                                                                     <tr>
+                                                                                        <th>CATEGORY</th>
+                                                                                        <th>0</th>
+                                                                                        <th>1</th>
+                                                                                        <th>2</th>
+                                                                                        <th>3</th>
+                                                                                        <th>4</th>
+                                                                                        <th>5</th>
+                                                                                     </tr>
+                                                                                </thead>
+                                                                                <tbody>
+
+                                                                                    <tr class="">
+                                                                                        <td>Are you satisfied with our analysis and report ?</td>
+                                                                                        <td><input type="radio"  value=0 name="analysis_and_report" /></td>
+                                                                                        <td><input type="radio"  value=1 name="analysis_and_report" /></td>
+                                                                                        <td><input type="radio"  value=2 name="analysis_and_report" /></td>
+                                                                                        <td><input type="radio"  value=3 name="analysis_and_report" /></td>
+                                                                                        <td><input type="radio"  value=4 name="analysis_and_report" /></td>
+                                                                                        <td><input type="radio"  value=5 name="analysis_and_report" /></td>
+                                                                                    </tr>
+                                                                                    <tr class="">
+                                                                                        <td>Did we meet your time scheduled for this job? </td>
+                                                                                        <td><input type="radio"  value=0 name="job_schedule" /></td>
+                                                                                        <td><input type="radio"  value=1 name="job_schedule" /></td>
+                                                                                        <td><input type="radio"  value=2 name="job_schedule" /></td>
+                                                                                        <td><input type="radio"  value=3 name="job_schedule" /></td>
+                                                                                        <td><input type="radio"  value=4 name="job_schedule" /></td>
+                                                                                        <td><input type="radio"  value=5 name="job_schedule" /></td>
+                                                                                    </tr>
+                                                                                     <tr class="">
+                                                                                        <td>Rate the performance of Laser Staff that related with you on this job? </td>
+                                                                                        <td><input type="radio"  value=0 name="staff_performance" /></td>
+                                                                                        <td><input type="radio"  value=1 name="staff_performance" /></td>
+                                                                                        <td><input type="radio"  value=2 name="staff_performance" /></td>
+                                                                                        <td><input type="radio"  value=3 name="staff_performance" /></td>
+                                                                                        <td><input type="radio"  value=4 name="staff_performance" /></td>
+                                                                                        <td><input type="radio"  value=5 name="staff_performance" /></td>
+                                                                                    </tr>
+                                                                                     <tr class="">
+                                                                                        <td>Are you satisfied with the price we charged for this job? </td>
+                                                                                        <td><input type="radio"  value=0 name="job_price" /></td>
+                                                                                        <td><input type="radio"  value=1 name="job_price" /></td>
+                                                                                        <td><input type="radio"  value=2 name="job_price" /></td>
+                                                                                        <td><input type="radio"  value=3 name="job_price" /></td>
+                                                                                        <td><input type="radio"  value=4 name="job_price" /></td>
+                                                                                        <td><input type="radio"  value=5 name="job_price" /></td>
+                                                                                    </tr>
+                                                                                     <tr class="">
+                                                                                        <td>Will you recommend us to other clients? </td>
+                                                                                        <td><input type="radio"  value=0 name="recommend_us" /></td>
+                                                                                        <td><input type="radio"  value=1 name="recommend_us" /></td>
+                                                                                        <td><input type="radio"  value=2 name="recommend_us" /></td>
+                                                                                        <td><input type="radio"  value=3 name="recommend_us" /></td>
+                                                                                        <td><input type="radio"  value=4 name="recommend_us" /></td>
+                                                                                        <td><input type="radio"  value=5 name="recommend_us" /></td>
+                                                                                    </tr>
+                                                                                     <tr class="">
+                                                                                        <td>Rate the prompt response to complaints  </td>
+                                                                                        <td><input type="radio"  value=0 name="complaint_response" /></td>
+                                                                                        <td><input type="radio"  value=1 name="complaint_response" /></td>
+                                                                                        <td><input type="radio"  value=2 name="complaint_response" /></td>
+                                                                                        <td><input type="radio"  value=3 name="complaint_response" /></td>
+                                                                                        <td><input type="radio"  value=4 name="complaint_response" /></td>
+                                                                                        <td><input type="radio"  value=5 name="complaint_response" /></td>
+                                                                                       </tr>
+                                                                                    </tbody>
+                                                          </table>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                                <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                    <div class="col-sm-12">
+                                                          <table id="table2" class="table table-bordered nowrap" width="100%">
+                                                               <tbody>
+                                                                 <tr class="">
+                                                                    <td>Do you have any cause to reject our services at any time?</td>
+                                                                    <td><input type="radio"  value="Yes" name="rejected_services" />  Yes</td>
+                                                                    <td><input type="radio"  value="No" name="rejected_services" />   No</td>
+                                                                 </tr>
+                                                                </tbody>
+                                                               </table>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input id="rejected_services_comment" type="text" class="required form-control"  name="rejected_services_comment" placeholder="comment why"/>
+                                                        <label for="rejected_services_comment">If yes, state your complaints *</label>
+                                                    </div>
+                                            </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-floating">
+                                                        <input id="client_id" type="text" class="required form-control" value="{{jobs.client_id}}" name="client_id" placeholder="client" readonly/>
+                                                           <input type="hidden" class="required form-control" name="job_id" value="{{jobs.id}}"/>
+                                                               <input type="hidden" class="required form-control" name="slug" value="{{jobs.slug}}"/>
+                                                        <label for="client_id">Client </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-floating">
+                                                        <input id="clientrep" type="text" class="required form-control" value="{{jobs.clientrep}}" name="clientrep" placeholder="clientrep" readonly/>
+                                                        <label for="clientrep">Client Representative</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-floating">
+                                                        <input id="Address" class="required form-control" name="address" placeholder="address"/>
+                                                        <label>Address *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                              <div class="row mb-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-floating mb-4 mb-md-0">
+                                                        <input id="comment" type="text" class="required form-control"  name="comment" placeholder="other comments"/>
+                                                       <label for="comment">Other comments *</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-floating mb-4 mb-md-0">
+                                                        <input id="laserrep" type="text" class="required form-control" value="{{jobs.laserrep_id}}" name="laserrep" placeholder="Laser Representative" readonly/>
+                                                        <label for="laserrep">Laser Contact Person</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-floating mb-4 mb-md-0">
+                                                        <input type="date" onload="getDate()"  class="required form-control" id="date" name="date" placeholder="date"/>
+                                                        <label for="date">Date</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid"><button class="btn btn-primary btn-block">Submit</button></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small">
+                                            {% if messages %}
+                                                   <div>
+                                                     {% for message in messages %}
+                                                     {% if message.tags == 'error' %}
+                                                     <div class="alert alert-danger">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% if message.tags == 'success' %}
+                                                     <div class="alert alert-success">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% endfor %}
+                                                   </div>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+</script>
+<script>
+	setTimeout(() => {
+  const box = document.getElementById('box');
+
+  // 👇️ removes element from DOM
+  box.style.display = 'none';
+
+  // 👇️ hides element (still takes up space on page)
+  // box.style.visibility = 'hidden';
+}, 8000); // 👈️ time in milliseconds
+</script>
+{% endblock custom_js %}

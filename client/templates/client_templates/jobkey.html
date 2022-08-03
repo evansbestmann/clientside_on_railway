@@ -1,0 +1,100 @@
+{% extends 'client_templates/base_template.html' %}
+{% load static %}
+{% block custom_css %}
+<style>
+table, th, td {
+width:100%;
+border: 1px solid black;
+border-collapse: collapse;
+}
+th, td {
+padding: 10px;
+text-align: left;
+}
+</style>
+{% endblock custom_css %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Client{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+     <li class="breadcrumb-item"><a href="/viewjob">Get Job Report</a></li>
+   <li class="breadcrumb-item active">Job Key</li>
+ </ol>
+ <div class="row">
+     <div class="col-xl-12">
+       <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                               Job info
+                            </div>
+                            <div class="card-body" id="tab">
+                                <table>
+                                  <tr>
+                                    <th>Job ID:</th>
+                                    <td>{{jobs.pvt_number}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Field:</th>
+                                    <td>{{jobs.field_id}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Level:</th>
+                                    <td>{{jobs.jobstatus}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Status:</th>
+                                    <td>{{jobs.completed}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Created at:</th>
+                                    <td>{{jobs.created_at}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Updated at:</th>
+                                    <td>{{jobs.updated_at}}</td>
+                                    </tr>
+                                                    </table>
+
+                              <br>
+                             <form class="form-horizontal" action="/jobdownload" method="post">
+                               {% csrf_token %}
+                                <div class="form-floating mb-3">
+
+                                    <input id="key" type="password" class="form-control" name="key" placeholder="key"/>
+                                    <label for="key">Input Job Key *</label>
+                                 </div>
+                                  <div class="">
+                                      <input type="hidden" class="required form-control" name="job_id" value="{{jobs.id}}"/>
+                                      <input type="hidden" class="required form-control" name="slug" value="{{jobs.slug}}"/>
+                                      <input type="hidden" class="required form-control" name="clientrep" value="{{jobs.clientrep}}"/>
+                                  </div>
+                                 <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                    <button type="submit" class="btn btn-primary btn-block">Proceed</button>
+                                 </div>
+                             </form>
+                             </div>
+                            <div class="card-footer text-center py-3">
+                                                    <div class="small">
+                                                        {% if messages %}
+                                                               <div>
+                                                                 {% for message in messages %}
+                                                                 {% if message.tags == 'error' %}
+                                                                 <div class="alert alert-danger">{{ message }}</div>
+                                                                 {% endif %}
+                                                                 {% if message.tags == 'success' %}
+                                                                 <div class="alert alert-success">{{ message }}</div>
+                                                                 {% endif %}
+                                                                 {% endfor %}
+                                                               </div>
+                                                        {% endif %}
+                                                    </div>
+                                 </div>
+       </div>
+     </div>
+ </div>
+{% endblock main_content %}
+{% block custom_js %}
+
+{% endblock custom_js %}
+
+

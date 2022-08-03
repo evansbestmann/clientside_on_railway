@@ -1,0 +1,44 @@
+{% extends 'client_templates/base_template.html' %}
+{% load static %}
+{% block custom_css %}
+<style>
+<img src="{%  static 'assets/img/work.jpg' %}" alt="rfp work" width="100%">
+</style>
+{% endblock custom_css %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Client{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/client_home">Home</a></li>
+   <li class="breadcrumb-item"><a href="/viewjob">Get Job Report</a></li>
+   <li class="breadcrumb-item active">Download Report</li>
+ </ol>
+
+
+                            <div class="col-lg-" style="margin-left">
+                                <div class="card mb-4" style="margin:2px auto; width:60vw;">
+                                    <div class="card-header">
+
+                                        Staff on the Vinci RFP
+                                    </div>
+                                    <div class="card-body">
+                                        <img src="{%  static 'assets/img/work.jpg' %}" alt="rfp work" width="100%;" style="  height:300px;">
+                                    </div>
+                                    <div class="card-footer small text-muted">
+                                        {% if jobs %}
+<!--                                            <a href="{{ jobs.pdf}}" class="btn btn-primary btn-sm" onclick="changedir(downloadjoj)" id="downloadjoj">Download Report</a>-->
+                                                <a href="{{ jobs.pdf.url }}" class="btn btn-primary btn-sm" download onclick="changedir(downloadjoj)" id="downloadjoj">Download Report</a>
+                    <!--                        <input type="hidden" class="required form-control" name="job_id" value="{{jobs.id}}"/>-->
+                                            <input type="hidden" class="required form-control" name="slug" value="{{jobs.slug}}"/>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+
+    <script type="text/javascript">
+      function changedir(downloadjoj)
+      {
+          window.location = '/jobfeedback/' + "{{ jobs.slug }}";
+      }
+    </script>
+{% endblock main_content %}

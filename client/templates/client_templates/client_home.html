@@ -1,0 +1,128 @@
+{% extends 'client_templates/base_template.html' %}
+{% load static %}
+{% block custom_css %}
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #808080;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 1%;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: #FFCBCB;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 6;
+}
+</style>
+{% endblock custom_css %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Client{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/client_home">Home</a></li>
+   <li class="breadcrumb-item active"></li>
+ </ol>
+ <div class="row">
+  <div class="col-xl-12">
+   <div class="card mb-4">
+       <div class="card-header" >
+            <H4 style="color:red;"> Disclaimer</H4>
+       </div>
+       <div class="card-body">
+            <H2> Welcome {{ user.username}} Job Representative</H2>
+            <h5>The information provided on this site by Laser Engineering Resources and Consultants Limited is strictly confidential with access keys posted to client job representatives.</h5>
+                  <h5> Be assured that your data is protected as established by the Nigeria Data Protection Regulation (NDPR) 2019 in pursuant of Section 6 (a, c) of the NITDA Act 2007.</h5>
+                  <h5> However, Laser Engineering Resources and Consultants Limited will not be held responsible for the validity, reliability and adequacy of above stated data outside the site as they may have been subject to manipulation. </h5>
+                  <h5>Job reports are available for free download for only 3 months from upload date.</h5>
+                  <h5>To view our other services,  <a href="{%  static 'assets/laser_services.pdf' %}" download="Laser Enigineering services">click me !</a></h5>
+
+         <button class="open-button" onclick="openForm()">Need help ?</button>
+
+<div class="form-popup" id="myForm" style="font-size: 12px">
+  <form action="/action_page.php" class="form-container">
+    <h1 style="font-size: 14px">Instruction!!</h1>
+    <h2 style="font-size: 13px">If free download still active</h2>
+<p>Navigate to and click the view jobs menu, you get a table of job linked to your employer</p>
+<p>if the job with Job-ID that was sent to your mail, you should search for it in search box and click the "Get Job" button</p>
+<p>Type in the Job Key sent to your mail in the job key input field and click the "Proceed" button, now click download on the download pag</p>
+<h2 style="font-size: 13px">If free download has expired</h2>
+<p>After you click proceed from job key, you'll be taken to a payment page with payers email and amount, click proceed, and wait for payment gatewat</p>
+<p>After payment you"ll be automatically taken to the download page.</p>
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+       </div>
+   </div>
+  </div>
+ </div>
+
+
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+{% endblock custom_js %}

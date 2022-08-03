@@ -1,0 +1,50 @@
+{% extends 'admin_templates/base_template.html' %}
+{% load static %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+   <li class="breadcrumb-item active">Manage Fields</li>
+ </ol>
+ <div class="row">
+     <div class="col-xl-12">
+       <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Manage Field
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                          <th>ID</th>
+                                          <th>Field Name</th>
+                                          <th>Client</th>
+                                          <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                          <th>ID</th>
+                                          <th>Field Name</th>
+                                          <th>Client</th>
+                                          <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                         {% for field in fields %}
+                                            <tr>
+                                                   <td>{{ field.id}}</td>
+                                                  <td>{{ field.field_name}}</td>
+                                                  <td>{{ field.client_id.username}}</td>
+                        <!--                            standard pytdon way of passing particular variable_id from views where kwargs={"variable_id":variable_id}-->
+                                                  <td><a href="{% url 'editfield'  field_id=field.id %}" class="btn btn-success">Edit</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+       </div>
+     </div>
+ </div>
+{% endblock main_content %}

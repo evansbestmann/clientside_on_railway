@@ -1,0 +1,22 @@
+ {% load static %}
+ <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <a class="nav-link collapsed" href="{% url 'client_home' %}">
+                                <div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link collapsed" href="{% url 'viewjob' %}">
+                                <div class="sb-nav-link-icon"><i class="fa fa-wrench" aria-hidden="true"></i></div>
+                                View Jobs
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        {{ user.username}}
+                    </div>
+                </nav>
+            </div>

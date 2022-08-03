@@ -1,0 +1,80 @@
+{% extends 'admin_templates/base_template.html' %}
+{% load static %}
+{% block custom_css %}
+<style>
+table, th, td {
+width:100%;
+border: 1px solid black;
+border-collapse: collapse;
+}
+th, td {
+padding: 10px;
+text-align: left;
+}
+</style>
+{% endblock custom_css %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+     <li class="breadcrumb-item"><a href="/viewfeedback">Jobs</a></li>
+   <li class="breadcrumb-item active">Detail</li>
+ </ol>
+ <div class="row">
+     <div class="col-xl-12">
+       <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                               Job info
+                            </div>
+                            <div class="card-body" id="tab">
+                                <table>
+                                  <tr>
+                                    <th>Job ID:</th>
+                                    <td>{{jobs.pvt_number}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Field:</th>
+                                    <td>{{jobs.field_id}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Level:</th>
+                                    <td>{{jobs.jobstatus}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Client Representative:</th>
+                                    <td>{{jobs.clientrep}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Client Representative Email:</th>
+                                    <td>{{jobs.clientrep_email}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Laser Representative:</th>
+                                    <td>{{jobs.laserrep_id}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Status:</th>
+                                    <td>{{jobs.completed}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Created at:</th>
+                                    <td>{{jobs.created_at}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Updated at:</th>
+                                    <td>{{jobs.updated_at}}</td>
+                                    </tr>
+                                    </table>
+                                <br>
+                                       <a href="{{ jobs.pdf.url }}" class="btn btn-primary btn-sm" target="_blank" download>Download Report</a>
+                            </div>
+       </div>
+     </div>
+ </div>
+{% endblock main_content %}
+{% block custom_js %}
+
+{% endblock custom_js %}
+
+

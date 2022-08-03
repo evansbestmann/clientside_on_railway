@@ -1,0 +1,75 @@
+{% extends 'admin_templates/base_template.html' %}
+{% load static %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+   <li class="breadcrumb-item active">Manage Complete Jobs</li>
+ </ol>
+ <div class="row">
+     <div class="col-xl-3 col-md-4"  style="width:33%;">
+                                <a style="color:white;text-decoration:none;" class="small text-white" href="{% url 'ongoingjobs' %}"><div class="card bg-primary text-white mb-4" style="font-size:20px;">
+                                    <div class="card-body">{{oc}} Active Jobs</div>
+                                </div></a>
+                            </div>
+                            <div class="col-xl-3 col-md-4" style="width:33%;">
+                                <a style="color:white;text-decoration:none;" class="small text-white" href="{% url 'completedjobs' %}"><div class="card bg-warning text-white mb-4" style="font-size:20px;">
+                                    <div class="card-body">{{cc}} Finished Jobs</div>
+                                </div></a>
+                            </div>
+                            <div class="col-xl-3 col-md-4" style="width:33%;">
+                                <a style="color:white;text-decoration:none;" class="small text-white" href="{% url 'managejob' %}"><div class="card bg-success text-white mb-4" style="font-size:20px;">
+                                    <div class="card-body">{{jc}} All Jobs</div>
+                                </div></a>
+                            </div>
+
+     <div class="col-xl-12">
+       <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Manage Jobs
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                          <th>Client</th>
+                                          <th>Field</th>
+                                          <th>Job ID</th>
+                                          <th>Level</th>
+                                          <th>Status</th>
+                                          <th>More info</th>
+                                          <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                          <th>Client</th>
+                                          <th>Field</th>
+                                          <th>Job ID</th>
+                                          <th>Level</th>
+                                          <th>Status</th>
+                                          <th>More info</th>
+                                          <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for job in Complete %}
+                                        <tr>
+                                          <td>{{ job.client_id}}</td>
+                                          <td>{{ job.field_id}}</td>
+                                          <td>{{ job.pvt_number}}</td>
+                                          <td>{{ job.jobstatus}}</td>
+                                          <td>{{ job.completed}}</td>
+                                          <td><a href="{% url 'viewjobinfo'  job_id=job.id %}" class="" style="color:black;">view</a></td>
+                <!--                            standard pytdon way of passing particular variable_id from views where kwargs={"variable_id":variable_id}-->
+                                          <td><a href="{% url 'editjob'  job_id=job.id %}" class="btn btn-success">Edit</a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+       </div>
+     </div>
+ </div>
+{% endblock main_content %}

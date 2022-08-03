@@ -1,0 +1,45 @@
+{% extends 'admin_templates/base_template.html' %}
+{% load static %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+   <li class="breadcrumb-item active">Add Job status</li>
+ </ol>
+ <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-body">
+                                        <form action="/addjobstatus_save" method="post">
+                                        {% csrf_token %}
+                                            <div class="form-floating mb-3">
+                                                <input id="status_name" type="text" class="required form-control" name="status_name" placeholder="status name"/>
+                                                <label for="status_name">Job status *</label>
+                                            </div>
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid"><button class="btn btn-primary btn-block">Submit</button></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small">
+                                            {% if messages %}
+                                                   <div>
+                                                     {% for message in messages %}
+                                                     {% if message.tags == 'error' %}
+                                                     <div class="alert alert-danger">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% if message.tags == 'success' %}
+                                                     <div class="alert alert-success">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% endfor %}
+                                                   </div>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endblock main_content %}

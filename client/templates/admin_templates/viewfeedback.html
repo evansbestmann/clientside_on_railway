@@ -1,0 +1,53 @@
+{% extends 'admin_templates/base_template.html' %}
+{% load static %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+   <li class="breadcrumb-item active">Client Feedback</li>
+ </ol>
+ <div class="row">
+     <div class="col-xl-12">
+       <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Client Feedback
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                          <th>Client</th>
+                                          <th>Client Rep</th>
+                                          <th>Job ID</th>
+                                          <th>Score  %</th>
+                                          <th>More info</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                          <th>Client</th>
+                                          <th>Client Rep</th>
+                                          <th>Job ID</th>
+                                          <th>Score  %</th>
+                                          <th>More info</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for job in fb %}
+                                        <tr>
+                                          <td>{{ job.client}}</td>
+                                          <td>{{ job.client_rep}}</td>
+                                          <td>{{ job.pvt_number}}</td>
+                                          <td>{{ job.score}}</td>
+                                          <td><a href="{% url 'viewfeedbackdetail'  job_id=job.id %}" class="" style="color:black;">view</a></td>
+                <!--                            standard pytdon way of passing particular variable_id from views where kwargs={"variable_id":variable_id}-->
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+       </div>
+     </div>
+ </div>
+{% endblock main_content %}

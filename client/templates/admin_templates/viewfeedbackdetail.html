@@ -1,0 +1,143 @@
+{% extends 'admin_templates/base_template.html' %}
+{% load static %}
+{% block custom_css %}
+<style>
+table, th, td {
+width:100%;
+border: 1px solid black;
+border-collapse: collapse;
+}
+th, td {
+
+text-align: left;
+}
+button {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    border-radius: 0.25rem;
+}
+</style>
+{% endblock custom_css %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+     <li class="breadcrumb-item"><a href="/viewfeedback">Client Feedback</a></li>
+   <li class="breadcrumb-item active">Detail</li>
+ </ol>
+ <div class="row">
+     <div class="col-xl-12">
+       <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                               Client Feedback Summary Posted on {{ fb.created_at}}
+                            </div>
+                            <div class="card-body" id="tab">
+                                <table>
+                                    <tr>
+                                    <th>Job ID:</th>
+                                    <td>{{ fb.pvt_number}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Client</th>
+                                    <td>{{ fb.client}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Client Rep</th>
+                                    <td>{{ fb.client_rep}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Score :</th>
+                                    <td>{{ fb.score}} %</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Description of service: </th>
+                                    <td>{{ fb.descrition_of_service}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Are you satisfied with our analysis and report: </th>
+                                    <td>{{ fb.analysis_and_report}}</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Did we meet your time scheduled for this job:</th>
+                                    <td>{{ fb.job_schedule}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>Rate the performance of Laser Staff that related with you on this job:</th>
+                                    <td>{{ fb.staff_performance}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>Are you satisfied with the price we charged for this job:</th>
+                                    <td>{{ fb.job_price}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>Will you recommend us to other clients:</th>
+                                    <td>{{ fb.recommend_us}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>Rate the prompt response to complaints: </th>
+                                    <td>{{ fb.complaint_response}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>Do you have any cause to reject our services at any time:</th>
+                                    <td>{{ fb.rejected_services}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>If yes, state your complaints: </th>
+                                    <td>{{ fb.rejected_services_comment}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>Address:</th>
+                                    <td>{{ fb.address}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>Contact Person:</th>
+                                    <td>{{ fb.laser_rep}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>Other comments:</th>
+                                    <td>{{ fb.comment}} </td>
+                                    </tr>
+                                    <tr>
+                                    <th>Date:</th>
+                                    <td>{{ fb.created_at}} </td>
+                                    </tr>
+                                  </table>
+
+                            </div>
+           <button type="submit" value="" id="btPrint" onclick="createPDF()">Download Report</button>
+       </div>
+     </div>
+ </div>
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+    function createPDF() {
+        var sTable = document.getElementById('tab').innerHTML;
+
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;text-align: left;}";
+        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        //style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write("{{ fb.pvt_number}} Evaluation by {{ fb.client_rep}} for {{ fb.client}}");   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+    }
+</script>
+{% endblock custom_js %}
+
+

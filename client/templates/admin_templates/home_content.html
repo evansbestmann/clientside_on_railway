@@ -1,0 +1,25 @@
+{% extends 'admin_templates/base_template.html' %}
+{% load static %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+   <li class="breadcrumb-item active"></li>
+ </ol>
+ <div class="row">
+  <div class="col-xl-12">
+   <div class="card mb-4">
+       <div class="card-header" >
+            <H4 style="color:red;"> Disclaimer</H4>
+       </div>
+       <div class="card-body">
+            <h5>The information provided on this site by Laser Engineering Resources and Consultants Limited is strictly confidential with access keys posted to client job representatives.</h5>
+                  <h5> Be assured that your data is protected as established by the Nigeria Data Protection Regulation (NDPR) 2019 in pursuant of Section 6 (a, c) of the NITDA Act 2007.</h5>
+                  <h5> However, Laser Engineering Resources and Consultants Limited will not be held responsible for the validity, reliability and adequacy of above stated data outside the site as they may have been subject to manipulation.</h5>
+                  <h5> As a Laser Engineering Resources and Consultants Limited Admistration, you are to abide to the confidenciality clauses referenced in your employment contract. All data shared on this application are to be posted to the appropriate client and
+                  client representive respectfully.</h5>
+       </div>
+   </div>
+  </div>
+ </div>
+{% endblock main_content %}

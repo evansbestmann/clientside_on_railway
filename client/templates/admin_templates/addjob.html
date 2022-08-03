@@ -1,0 +1,237 @@
+{% extends 'admin_templates/base_template.html' %}
+{% load static %}
+{% block custom_css %}
+<style>
+.alert {
+
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+{% endblock custom_css %}
+{% block main_content %}
+ <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <ol class="breadcrumb mb-4">
+   <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+   <li class="breadcrumb-item active">Add Job</li>
+ </ol>
+ <div class="container">
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div class="alert" id="box" style="background-color: orange;padding: 20px;color: white;">
+                                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                  <strong>Note!</strong> Make sure to copy atleast four Laser staff as the will be notified of this action.
+                                </div>
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-body">
+                                        <form action="/addjob_save" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                            <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                    <div class="col-sm-12">
+                                                          <table id="table1" class="table table-bordered nowrap" width="100%">
+                                                             <tr>
+                                                                <td>Has this Project been completed ?</td>
+                                                                <td><input type="radio"   value="Complete" name="complete" />  Complete</td>
+                                                                <td><input type="radio" value="Active" name="complete" />   Active</td>
+                                                             </tr>
+                                                          </table>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="client" id="client_id" >
+                                                        <option  selected disabled="true">select client</option>
+                                                        {%  for client in clients %}
+                                                           <option value="{{ client.id }}">{{ client.username}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="field_id" id="field_id">
+                                                        <option>select field</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="status" id="status">
+                                                        <option value="" disabled selected hidden>Select Job Level</option>
+                                                        {%  for status in statuses %}
+                                                           <option value="{{status.id }}">{{ status.jobstatus}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                  <select class="select2 form-select shadow-none" style="width: 100%; height: 36px" name="laser_rep" id="laser_rep">
+                                                    <option value="" disabled selected hidden>Select Laser Representative</option>
+                                                    {%  for laserrep in laserreps %}
+                                                       <option value="{{laserrep.id }}">{{ laserrep.laserrep_name}}</option>
+                                                    {%  endfor %}
+                                                  </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input id="pvt_number" type="text" class="required form-control" name="pvt_number" placeholder="job-id"/>
+                                                        <label for="pvt_number">Job-ID *</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-floating">
+                                                        <input id="clientrep" type="text" class="required form-control" name="clientrep" placeholder="client rep"/>
+                                                        <label for="clientrep">Client Representative *</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-floating">
+                                                        <input id="clientrepmail" type="email" class="required form-control" name="clientrepmail" placeholder="client rep mail"/>
+                                                        <label for="clientrepmail">Client Representative Email *</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-floating">
+                                                        <input id="jobkey" type="text" class="required form-control" name="jobkey" placeholder="Job key"/>
+                                                        <label for="jobkey">Job Key*</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                              <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input type="email" id="copiedemails" name="copiedemails" class="form-control" placeholder="copiedemails"/>
+                                                       <label for="copiedemails">First Copy mail</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-floating">
+                                                        <input type="email" id="copiedemails1" name="copiedemails1" class="form-control" placeholder="copiedemails1"/>
+                                                        <label for="copiedemails1">Second Copy mail</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-floating">
+                                                        <input type="email" id="copiedemails2" name="copiedemails2" class="form-control" placeholder="copiedemails2"/>
+                                                        <label for="copiedemails2">Third Copy mail</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-floating">
+                                                        <input type="email" id="copiedemails3" name="copiedemails3" class="form-control" placeholder="copiedemails3"/>
+                                                        <label for="copiedemails3">Fourth Copy mail</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input name="jobfile" id="jobfile" class="required form-control" type="file">
+
+                                            </div>
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid"><button class="btn btn-primary btn-block">Submit</button></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small">
+                                            {% if messages %}
+                                                   <div>
+                                                     {% for message in messages %}
+                                                     {% if message.tags == 'error' %}
+                                                     <div class="alert alert-danger">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% if message.tags == 'success' %}
+                                                     <div class="alert alert-success">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% endfor %}
+                                                   </div>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+        ///csrftoken for javascript
+        function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+    ///csrftoken for javascript
+
+    let client = document.getElementById("client_id") //we get the client select by id
+    let fieldvar = document.getElementById("field_id") //we get the client select by id
+    client.addEventListener("change", getClientId) //we listened for a change in the client select field
+
+    function getClientId(e){
+        console.log(e.target.value)//to see event in console //e is the event element for getClientId
+
+        let clientval = e.target.value// value of selected from option
+
+        const data = { id: clientval }; // data we are sending to the back end, id is key and clientval is the actual value of selected client
+
+        let url = " {% url 'getfields' %} " //getting our view url from which we want to get data and pussing in the fetch
+
+    fetch(url, {
+    method: 'POST', // or 'PUT'
+    headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+    },
+    body: JSON.stringify(data),//JSON.stringyfy used to convert the data object to a string
+    })
+    .then(response => response.json())
+    .then(data => {
+     console.log('Success:', data);
+     fieldvar.innerHTML = '<option value="" selected="">--select field--</option>' //passing returned data from backend to the field option
+     for(let i = 0; i < data.length; i++){
+       fieldvar.innerHTML += `<option value="${data[i]["id"]}" selected="">${data[i]["field_name"]}</option>`
+     }
+     })
+     .catch((error) => {
+     console.error('Error:', error);
+     });
+     }
+</script>
+<script>
+	setTimeout(() => {
+  const box = document.getElementById('box');
+
+  // 👇️ removes element from DOM
+  box.style.display = 'none';
+
+  // 👇️ hides element (still takes up space on page)
+  // box.style.visibility = 'hidden';
+}, 8000); // 👈️ time in milliseconds
+</script>
+{% endblock custom_js %}
