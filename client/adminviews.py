@@ -270,8 +270,6 @@ def addjob_save(request):
         clientemail = CustomUser.objects.get(id=client).email
         clientpassword = CustomUser.objects.get(id=client).password
         passwordsent = CustomUser.objects.get(id=client).sentpassword
-        # print(passwordsent)
-        #mail for client rep
         job_model = Dataset(pvt_number=pvt_number, clientrep=clientrep, clientrep_email=clientrepmail, jobkey=jobkey,
                             pdf=jobfile, copiedemails=copiedemails, client_id=client_id, field_id=field_id,
                             jobstatus=jobstatus_id, laserrep_id=laser_rep_id,
