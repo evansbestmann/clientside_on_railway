@@ -3,7 +3,7 @@ from django.db import models
 import secrets
 from .paystack import *
 from .utils import *
-from cloudinary_storage.storage import RawMediaCloudinaryStorage
+
 from cloudinary.models import CloudinaryField
 # Create your models here.
 from django.db.models.signals import post_save,pre_save ###presave for slug url function
@@ -74,7 +74,7 @@ class Dataset(models.Model):
     copiedemail1 = models.EmailField()
     copiedemails2 = models.EmailField()
     copiedemails3 = models.EmailField()
-    pdf = models.FileField(upload_to='raw/',storage=RawMediaCloudinaryStorage())
+    pdf = models.FileField(upload_to='raw/')
     #pdf = CloudinaryField('raw/')
     #img = models.ImageField(upload_to='image/')
     completed = models.CharField(choices=choices, max_length=8, default="Active")
