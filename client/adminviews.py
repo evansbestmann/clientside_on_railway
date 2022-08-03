@@ -272,44 +272,11 @@ def addjob_save(request):
         passwordsent = CustomUser.objects.get(id=client).sentpassword
         # print(passwordsent)
         #mail for client rep
-
         try:
             job_model = Dataset(pvt_number=pvt_number, clientrep=clientrep, clientrep_email=clientrepmail, jobkey=jobkey,
                                 pdf=jobfile, copiedemails=copiedemails,client_id=client_id, field_id=field_id, jobstatus=jobstatus_id, laserrep_id=laser_rep_id,
                                 completed=complete, copiedemail1=copiedemails1,copiedemails2=copiedemails2, copiedemails3=copiedemails3)
             job_model.save()
-            try:
-
-                context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
-                           "jobstatus_id": jobstatus_id, "clientemail": clientemail,"passwordsent":passwordsent}
-                mail_temp = "admin_templates/email_template.html"
-                mail_msg = render_to_string(mail_temp, context=context)
-                mail_from = "labinfo@laser-ng.com"
-                subject = "Laser Engineering posted a Report to you"
-                recipient = [clientrepmail]
-                mail = EmailMessage(subject, mail_msg, mail_from, recipient)
-                mail.content_subtype = 'html'
-                mail.send()
-            except:
-                messages.error(request, "Make sure your internet is connected")
-                return HttpResponseRedirect(reverse("addjob"))
-
-            # mail for copied mails
-            try:
-                context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
-                           "jobstatus_id": jobstatus_id,
-                           "clientemail": clientemail, "clientpassword": clientpassword, }
-                mail_temp = "admin_templates/emailcopied_template.html"
-                mail_msg = render_to_string(mail_temp, context=context)
-                mail_from = "labinfo@laser-ng.com"
-                subject = "Laser Engineering Notice for Report sent to Client representative"
-                recipient = [copiedemails, copiedemails1, copiedemails2, copiedemails3]
-                mail = EmailMessage(subject, mail_msg, mail_from, recipient)
-                mail.content_subtype = 'html'
-                mail.send()
-            except:
-                messages.error(request, "Make sure your internet is connected")
-                return HttpResponseRedirect(reverse("addjob"))
             messages.success(request, "Job added successfully")
             return HttpResponseRedirect(reverse("addjob"))
         except:
