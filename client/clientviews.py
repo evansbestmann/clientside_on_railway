@@ -57,7 +57,7 @@ def jobdownload(request):
             utc = pytz.UTC
             xcon = utc.localize(x)
             #0.000694
-            expiredate = datecreated + td(days=0.00347)
+            expiredate = datecreated + td(days=91.25)
             ##print(datecreated)
             ##print(expiredate)
             ##print(xcon)

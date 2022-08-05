@@ -67,13 +67,31 @@ text-align: left;
                                     </tr>
                                     </table>
                                 <br>
-                                       <a href="{{ jobs.pdf.url }}" class="btn btn-primary btn-sm" target="_blank" download>Download Report</a>
+                                       <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf.url }}', 'Laser Engineering Report for {{ jobs.pvt_number }}')" download>Download Report</a>
                             </div>
        </div>
      </div>
  </div>
 {% endblock main_content %}
 {% block custom_js %}
+<script>
+    function forceDownload(url, fileName){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.responseType = "blob";
+    xhr.onload = function(){
+        var urlCreator = window.URL || window.webkitURL;
+        var imageUrl = urlCreator.createObjectURL(this.response);
+        var tag = document.createElement('a');
+        tag.href = imageUrl;
+        tag.download = fileName;
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+    }
+    xhr.send();
+}
+</script>
 
 {% endblock custom_js %}
 

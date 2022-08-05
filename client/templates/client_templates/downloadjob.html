@@ -2,6 +2,7 @@
 {% load static %}
 {% block custom_css %}
 <style>
+
 <img src="{%  static 'assets/img/work.jpg' %}" alt="rfp work" width="100%">
 </style>
 {% endblock custom_css %}
@@ -25,20 +26,32 @@
                                     </div>
                                     <div class="card-footer small text-muted">
                                         {% if jobs %}
-<!--                                            <a href="{{ jobs.pdf}}" class="btn btn-primary btn-sm" onclick="changedir(downloadjoj)" id="downloadjoj">Download Report</a>-->
-                                                <a href="{{ jobs.pdf.url }}" class="btn btn-primary btn-sm" download onclick="changedir(downloadjoj)" id="downloadjoj">Download Report</a>
-                    <!--                        <input type="hidden" class="required form-control" name="job_id" value="{{jobs.id}}"/>-->
+                                            <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf.url }}', 'Laser Engineering Report for {{ jobs.pvt_number }}')" download>Download Report</a>
                                             <input type="hidden" class="required form-control" name="slug" value="{{jobs.slug}}"/>
                                         {% endif %}
                                     </div>
                                 </div>
                             </div>
 
-
-    <script type="text/javascript">
-      function changedir(downloadjoj)
-      {
-          window.location = '/jobfeedback/' + "{{ jobs.slug }}";
-      }
-    </script>
 {% endblock main_content %}
+{% block custom_js %}
+  <script>
+    function forceDownload(url, fileName){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.responseType = "blob";
+    xhr.onload = function(){
+        var urlCreator = window.URL || window.webkitURL;
+        var imageUrl = urlCreator.createObjectURL(this.response);
+        var tag = document.createElement('a');
+        tag.href = imageUrl;
+        tag.download = fileName;
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+    }
+    xhr.send();
+    window.location = '/jobfeedback/' + "{{ jobs.slug }}";
+  }
+  </script>
+{% endblock custom_js %}
