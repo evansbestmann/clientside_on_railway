@@ -1,30 +1,7 @@
 {% extends 'client_templates/base_template.html' %}
 {% load static %}
-{% block custom_css %}
-<style>
-.alert {
-  padding: 20px;
-  color: white;
-}
-
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
-}
-</style>
-{% endblock custom_css %}
 {% block main_content %}
- <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
+ <h1 class="page-title">{% block page_title %}Client{% endblock page_title %}</h1>
  <ol class="breadcrumb mb-4">
    <li class="breadcrumb-item"><a href="/client_home">Home</a></li>
    <li class="breadcrumb-item"><a href="/viewjob">Get Job Report</a></li>
@@ -34,10 +11,6 @@
 
                         <div class="row justify-content-center">
                             <div class="col-lg-12">
-                                <div class="alert" id="box" style="background-color: orange;">
-                                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                                  <strong>Note!</strong> Your feedback is needed to better our service process to you and for Audit purposes.
-                                </div>
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-body">
                                         <form action="/feedback_save" method="post" enctype="multipart/form-data">
@@ -147,7 +120,7 @@
                                             <div class="col-md-3">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input id="rejected_services_comment" type="text" class="required form-control"  name="rejected_services_comment" placeholder="comment why"/>
-                                                        <label for="rejected_services_comment">If yes, state your complaints *</label>
+                                                        <label for="rejected_services_comment">If yes, state reason *</label>
                                                     </div>
                                             </div>
                                                 <div class="col-md-3">
@@ -219,17 +192,4 @@
 
 {% endblock main_content %}
 {% block custom_js %}
-<script>
-</script>
-<script>
-	setTimeout(() => {
-  const box = document.getElementById('box');
-
-  // 👇️ removes element from DOM
-  box.style.display = 'none';
-
-  // 👇️ hides element (still takes up space on page)
-  // box.style.visibility = 'hidden';
-}, 8000); // 👈️ time in milliseconds
-</script>
 {% endblock custom_js %}
