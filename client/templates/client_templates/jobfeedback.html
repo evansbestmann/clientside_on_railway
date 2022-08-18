@@ -117,27 +117,20 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input id="rejected_services_comment" type="text" class="required form-control"  name="rejected_services_comment" placeholder="comment why"/>
                                                         <label for="rejected_services_comment">If yes, state reason *</label>
                                                     </div>
                                             </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-floating">
-                                                        <input id="client_id" type="text" class="required form-control" value="{{jobs.client_id}}" name="client_id" placeholder="client" readonly/>
-                                                           <input type="hidden" class="required form-control" name="job_id" value="{{jobs.id}}"/>
-                                                               <input type="hidden" class="required form-control" name="slug" value="{{jobs.slug}}"/>
-                                                        <label for="client_id">Client </label>
+                                            <div class="col-md-4">
+                                                    <div class="form-floating mb-4 mb-md-0">
+                                                        <input id="comment" type="text" class="required form-control"  name="comment" placeholder="other comments"/>
+                                                       <label for="comment">Other comments *</label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-floating">
-                                                        <input id="clientrep" type="text" class="required form-control" value="{{jobs.clientrep}}" name="clientrep" placeholder="clientrep" readonly/>
-                                                        <label for="clientrep">Client Representative</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
+
+                                                <div class="col-md-4">
                                                     <div class="form-floating">
                                                         <input id="Address" class="required form-control" name="address" placeholder="address"/>
                                                         <label>Address *</label>
@@ -147,20 +140,22 @@
                                               <div class="row mb-12">
                                                 <div class="col-md-4">
                                                     <div class="form-floating mb-4 mb-md-0">
-                                                        <input id="comment" type="text" class="required form-control"  name="comment" placeholder="other comments"/>
-                                                       <label for="comment">Other comments *</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-floating mb-4 mb-md-0">
                                                         <input id="laserrep" type="text" class="required form-control" value="{{jobs.laserrep_id}}" name="laserrep" placeholder="Laser Representative" readonly/>
                                                         <label for="laserrep">Laser Contact Person</label>
                                                     </div>
                                                 </div>
+                                                 <div class="col-md-4">
+                                                    <div class="form-floating">
+                                                        <input id="client_id" type="text" class="required form-control" value="{{jobs.client_id}}" name="client_id" placeholder="client" readonly/>
+                                                           <input type="hidden" class="required form-control" name="job_id" value="{{jobs.id}}"/>
+                                                               <input type="hidden" class="required form-control" name="slug" value="{{jobs.slug}}"/>
+                                                        <label for="client_id">Client </label>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-4">
-                                                    <div class="form-floating mb-4 mb-md-0">
-                                                        <input type="date" onload="getDate()"  class="required form-control" id="date" name="date" placeholder="date"/>
-                                                        <label for="date">Date</label>
+                                                    <div class="form-floating">
+                                                        <input id="clientrep" type="text" class="required form-control" value="{{jobs.clientrep}}" name="clientrep" placeholder="clientrep" readonly/>
+                                                        <label for="clientrep">Client Representative</label>
                                                     </div>
                                                 </div>
                                             </div>

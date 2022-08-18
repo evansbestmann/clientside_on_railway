@@ -45,7 +45,7 @@
                                                     <div class="col-sm-12">
                                                           <table id="table1" class="table table-bordered nowrap" width="100%">
                                                              <tr>
-                                                                <td>Has this Project been completed ?</td>
+                                                                <td>Has this Project been completed ? *</td>
                                                                 <td><input type="radio"   value="Complete" name="complete" />  Complete</td>
                                                                 <td><input type="radio" value="Active" name="complete" />   Active</td>
                                                              </tr>
@@ -56,7 +56,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-3">
                                                     <select class="select2 form-select shadow-none" style="width: 100%;" name="client" id="client_id" >
-                                                        <option  selected disabled="true">select client</option>
+                                                        <option  selected disabled="true">select client *</option>
                                                         {%  for client in clients %}
                                                            <option value="{{ client.id }}">{{ client.username}}</option>
                                                         {%  endfor %}
@@ -64,12 +64,46 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <select class="select2 form-select shadow-none" style="width: 100%;" name="field_id" id="field_id">
-                                                        <option>select field</option>
+                                                        <option>select field *</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <select class="select2 form-select shadow-none" style="width: 100%;" name="status" id="status">
-                                                        <option value="" disabled selected hidden>Select Job Level</option>
+                                                        <option value="" disabled selected hidden>Not  Specified Level 1 *</option>
+                                                        {%  for status in statuses %}
+                                                           <option value="{{status.id }}">{{ status.jobstatus}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="status1" id="status1">
+                                                        <option value="" disabled selected hidden>Not Specified Level 2</option>
+                                                        {%  for status in statuses %}
+                                                           <option value="{{status.id }}">{{ status.jobstatus}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="status2" id="status2">
+                                                        <option value="" disabled selected hidden>Not Specified Level 3</option>
+                                                        {%  for status in statuses %}
+                                                           <option value="{{status.id }}">{{ status.jobstatus}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="status3" id="status3">
+                                                        <option value="" disabled selected hidden>Not Specified Level 4</option>
+                                                        {%  for status in statuses %}
+                                                           <option value="{{status.id }}">{{ status.jobstatus}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="status4" id="status4">
+                                                        <option value="" disabled selected hidden>Not Specified Level 5</option>
                                                         {%  for status in statuses %}
                                                            <option value="{{status.id }}">{{ status.jobstatus}}</option>
                                                         {%  endfor %}
@@ -77,7 +111,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                   <select class="select2 form-select shadow-none" style="width: 100%; height: 36px" name="laser_rep" id="laser_rep">
-                                                    <option value="" disabled selected hidden>Select Laser Representative</option>
+                                                    <option value="" disabled selected hidden>Select Laser Representative *</option>
                                                     {%  for laserrep in laserreps %}
                                                        <option value="{{laserrep.id }}">{{ laserrep.laserrep_name}}</option>
                                                     {%  endfor %}
@@ -115,25 +149,25 @@
                                                 <div class="col-md-3">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input type="email" id="copiedemails" name="copiedemails" class="form-control" placeholder="copiedemails"/>
-                                                       <label for="copiedemails">First Copy mail</label>
+                                                       <label for="copiedemails">First Copy mail *</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-floating">
                                                         <input type="email" id="copiedemails1" name="copiedemails1" class="form-control" placeholder="copiedemails1"/>
-                                                        <label for="copiedemails1">Second Copy mail</label>
+                                                        <label for="copiedemails1">Second Copy mail *</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-floating">
                                                         <input type="email" id="copiedemails2" name="copiedemails2" class="form-control" placeholder="copiedemails2"/>
-                                                        <label for="copiedemails2">Third Copy mail</label>
+                                                        <label for="copiedemails2">Third Copy mail *</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-floating">
                                                         <input type="email" id="copiedemails3" name="copiedemails3" class="form-control" placeholder="copiedemails3"/>
-                                                        <label for="copiedemails3">Fourth Copy mail</label>
+                                                        <label for="copiedemails3">Fourth Copy mail *</label>
                                                     </div>
                                                 </div>
                                             </div>

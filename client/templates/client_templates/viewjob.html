@@ -35,7 +35,6 @@
                                           <th>Client</th>
                                           <th>Field</th>
                                           <th>Job ID</th>
-                                          <th>Level</th>
                                           <th>Status</th>
                                           <th>Action</th>
                                         </tr>
@@ -45,23 +44,23 @@
                                           <th>Client</th>
                                           <th>Field</th>
                                           <th>Job ID</th>
-                                          <th>Level</th>
                                           <th>Status</th>
                                           <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+
                                             {% for job in jobs %}
-                                            <tr>
+                                            <tr onclick="window.location='{% url 'jobkey'  job_id=job.slug %}';">
                                               <td>{{ job.client_id}}</td>
                                               <td>{{ job.field_id}}</td>
                                               <td>{{ job.pvt_number}}</td>
-                                              <td>{{ job.jobstatus}}</td>
                                               <td>{{ job.completed}}</td>
                     <!--                          <td><a href="{% url 'viewjobinfoclient'  job_id=job.id %}" class="" style="color:black;">view</a></td>-->
                     <!--                            standard pytdon way of passing particular variable_id from views where kwargs={"variable_id":variable_id}-->
                                               <td><a href="{% url 'jobkey'  job_id=job.slug %}" class="btn btn-success">Get Job</a></td>
                                             </tr>
+                                            </a>
                                             {% endfor %}
                                     </tbody>
                                 </table>

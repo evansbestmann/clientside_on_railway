@@ -36,7 +36,6 @@
                                           <th>Client</th>
                                           <th>Field</th>
                                           <th>Job ID</th>
-                                          <th>Level</th>
                                           <th>Status</th>
                                           <th>More info</th>
                                           <th>Action</th>
@@ -47,7 +46,6 @@
                                           <th>Client</th>
                                           <th>Field</th>
                                           <th>Job ID</th>
-                                          <th>Level</th>
                                           <th>Status</th>
                                           <th>More info</th>
                                           <th>Action</th>
@@ -59,9 +57,8 @@
                                           <td>{{ job.client_id}}</td>
                                           <td>{{ job.field_id}}</td>
                                           <td>{{ job.pvt_number}}</td>
-                                          <td>{{ job.jobstatus}}</td>
                                           <td>{{ job.completed}}</td>
-                                          <td><a href="{% url 'viewjobinfo'  job_id=job.id %}" class="" style="color:black;">view</a></td>
+                                          <td><a href="{% url 'viewjobinfo'  job_id=job.id %}" class="btn btn-success" style="">view</a></td>
                 <!--                            standard pytdon way of passing particular variable_id from views where kwargs={"variable_id":variable_id}-->
                                           <td><a href="{% url 'editjob'  job_id=job.id %}" class="btn btn-success">Edit</a></td>
                                         </tr>

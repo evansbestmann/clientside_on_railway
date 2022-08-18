@@ -82,7 +82,13 @@ def downloadjob(request,job_id):
 
 def payforjob(request, job_id):
     jobs = Dataset.objects.get(slug=job_id)
-    return render(request, "client_templates/payforjob.html",{"jobs": jobs, "slug": job_id})
+    jobstatus1 = Dataset.objects.get(slug=job_id).jobstatus1
+    jobstatus2 = Dataset.objects.get(slug=job_id).jobstatus2
+    jobstatus3 = Dataset.objects.get(slug=job_id).jobstatus3
+    jobstatus4 = Dataset.objects.get(slug=job_id).jobstatus4
+
+    return render(request, "client_templates/payforjob.html",{"jobs": jobs, "slug": job_id,"jobstatus1":jobstatus1,"jobstatus2":jobstatus2,
+                                                              "jobstatus3":jobstatus3,"jobstatus4":jobstatus4})
 
 def transcation(request):
     if request.method != "POST":
@@ -167,12 +173,31 @@ def feedback_save(request):
         job = request.POST.get("job")
         slug = request.POST.get("slug")
         service=request.POST.get("service")
-        analysis_and_report = request.POST.get("analysis_and_report")
-        job_schedule =request.POST.get("job_schedule")
-        staff_performance =request.POST.get("staff_performance")
-        job_price =request.POST.get("job_price")
-        recommend_us =request.POST.get("recommend_us")
-        complaint_response =request.POST.get("complaint_response")
+        if request.POST.get('analysis_and_report', False):
+            analysis_and_report = request.POST.get("analysis_and_report")
+        else:
+            analysis_and_report = 0
+        if request.POST.get('job_schedule', False):
+            job_schedule = request.POST.get("job_schedule")
+        else:
+            job_schedule = 0
+        if request.POST.get('staff_performance', False):
+            staff_performance = request.POST.get("staff_performance")
+        else:
+            staff_performance = 0
+        if request.POST.get('job_price', False):
+            job_price = request.POST.get("job_price")
+        else:
+            job_price = 0
+        if request.POST.get('recommend_us', False):
+            recommend_us = request.POST.get("recommend_us")
+        else:
+            recommend_us = 0
+        if request.POST.get('complaint_response', False):
+            complaint_response = request.POST.get("complaint_response")
+        else:
+            complaint_response = 0
+
         rejected_services =request.POST.get("rejected_services")
         rejected_services_comment =request.POST.get("rejected_services_comment")
         address =request.POST.get("address")
@@ -182,7 +207,6 @@ def feedback_save(request):
         client_rep =request.POST.get("clientrep")
         comment =request.POST.get("comment")
         client_rep_designation =""
-        date=request.POST.get("date")
         n1= int(analysis_and_report)
         n2=int(job_price)
         n3=int(job_schedule)
@@ -201,7 +225,7 @@ def feedback_save(request):
                                        analysis_and_report=analysis_and_report,job_schedule=job_schedule,staff_performance=staff_performance,
                                        job_price=job_price,recommend_us=recommend_us,complaint_response=complaint_response,score=score,
                                        rejected_services=rejected_services,rejected_services_comment=rejected_services_comment,pvt_number=job,
-                                       comment=comment,laser_rep=laser_rep,client_rep=client_rep,client_rep_designation=client_rep_designation,created_at=date ,slug=slug)
+                                       comment=comment,laser_rep=laser_rep,client_rep=client_rep,client_rep_designation=client_rep_designation,slug=slug)
             feedback_model.save()
             try:
                 ### payment confirm client mail

@@ -254,7 +254,26 @@ def addjob_save(request):
         pvt_number = request.POST.get("pvt_number")
         clientrep = request.POST.get("clientrep")
         clientrepmail = request.POST.get("clientrepmail")
-        jobstatus = request.POST.get("status")
+        if request.POST.get('status', False):
+            jobstatus = request.POST.get("status")
+        else:
+            jobstatus = JobStatus.objects.get(id=1).id
+        if request.POST.get('status1', False):
+            jobstatus1 = request.POST.get("status1")
+        else:
+            jobstatus1 = JobStatus.objects.get(id=1).id
+        if request.POST.get('status2', False):
+            jobstatus2 = request.POST.get("status2")
+        else:
+            jobstatus2 = JobStatus.objects.get(id=1).id
+        if request.POST.get('status3', False):
+            jobstatus3 = request.POST.get("status3")
+        else:
+            jobstatus3 = JobStatus.objects.get(id=1).id
+        if request.POST.get('status4', False):
+            jobstatus4 = request.POST.get("status4")
+        else:
+            jobstatus4 = JobStatus.objects.get(id=1).id
         laser_rep = request.POST.get("laser_rep")
         jobkey = request.POST.get("jobkey")
         copiedemails = request.POST.get("copiedemails")
@@ -266,6 +285,10 @@ def addjob_save(request):
         client_id = CustomUser.objects.get(id=client)
         field_id = Fields.objects.get(id=field)
         jobstatus_id = JobStatus.objects.get(id=jobstatus)
+        jobstatus_id1 = JobStatus.objects.get(id=jobstatus1)
+        jobstatus_id2 = JobStatus.objects.get(id=jobstatus2)
+        jobstatus_id3 = JobStatus.objects.get(id=jobstatus3)
+        jobstatus_id4 = JobStatus.objects.get(id=jobstatus4)
         laser_rep_id = LaserRep.objects.get(id=laser_rep)
         clientemail = CustomUser.objects.get(id=client).email
         clientpassword = CustomUser.objects.get(id=client).password
@@ -276,7 +299,8 @@ def addjob_save(request):
                                 pdf=jobfile, copiedemails=copiedemails, client_id=client_id, field_id=field_id,
                                 jobstatus=jobstatus_id, laserrep_id=laser_rep_id,
                                 completed=complete, copiedemail1=copiedemails1, copiedemails2=copiedemails2,
-                                copiedemails3=copiedemails3)
+                                copiedemails3=copiedemails3,jobstatus1=jobstatus_id1,jobstatus2=jobstatus_id2,jobstatus3=jobstatus_id3,
+                                jobstatus4=jobstatus_id4)
             job_model.save()
             try:
 
@@ -311,7 +335,7 @@ def addjob_save(request):
             messages.success(request, "Job added successfully")
             return HttpResponseRedirect(reverse("managejob"))
         except:
-            messages.error(request, "Job add Failed")
+            messages.error(request, "Job add Failed, Make sure to all fields")
             return HttpResponseRedirect(reverse("addjob"))
 
 def managejob(request):
@@ -329,7 +353,7 @@ def editjob(request, job_id):
     statuses = JobStatus.objects.all()
     laserreps = LaserRep.objects.all()
     jobs= Dataset.objects.get(id=job_id)
-    fields = Fields.objects.get(id=jobs.field_id.id)
+    fields = Fields.objects.all()
     return render(request, "admin_templates/editjob.html", {"fields": fields,"jobs": jobs, "id":job_id,"clients":clients,"statuses":statuses,"laserreps":laserreps})
 
 def getfieldsedit(request):
@@ -347,15 +371,22 @@ def editjob_save(request):
         slug= request.POST.get("slug")
         if job_id == None:
             return HttpResponseRedirect(reverse("managejob"))
-        client = request.POST.get("client")
+        if request.POST.get('client', False):
+            client = request.POST.get("client")
+        else:
+            client = Dataset.objects.get(id=job_id).client_id
         if request.POST.get('field_id', False):
             field = request.POST.get("field_id")
         else:
-            field = None
+            field = Dataset.objects.get(id=job_id).field_id.id
         pvt_number = request.POST.get("pvt_number")
         clientrep = request.POST.get("clientrep")
         clientrepmail = request.POST.get("clientrepmail")
         jobstatus = request.POST.get("status")
+        jobstatus1 = request.POST.get("status1")
+        jobstatus2 = request.POST.get("status2")
+        jobstatus3 = request.POST.get("status3")
+        jobstatus4 = request.POST.get("status4")
         laser_rep = request.POST.get("laser_rep")
         jobkey = request.POST.get("jobkey")
         if request.POST.get('complete',False):
@@ -370,6 +401,10 @@ def editjob_save(request):
         client_id = CustomUser.objects.get(id=client)
         field_id = Fields.objects.get(id=field)
         jobstatus_id = JobStatus.objects.get(id=jobstatus)
+        jobstatus_id1 = JobStatus.objects.get(id=jobstatus1)
+        jobstatus_id2 = JobStatus.objects.get(id=jobstatus2)
+        jobstatus_id3 = JobStatus.objects.get(id=jobstatus3)
+        jobstatus_id4 = JobStatus.objects.get(id=jobstatus4)
         laser_rep_id = LaserRep.objects.get(id=laser_rep)
         clientemail = CustomUser.objects.get(id=client).email
         clientpassword = CustomUser.objects.get(id=client).password
@@ -420,6 +455,10 @@ def editjob_save(request):
             job_model.client_id = client_id
             job_model.field_id = field_id
             job_model.jobstatus = jobstatus_id
+            job_model.jobstatus1 = jobstatus_id1
+            job_model.jobstatus2 = jobstatus_id2
+            job_model.jobstatus3 = jobstatus_id3
+            job_model.jobstatus4 = jobstatus_id4
             job_model.laserrep_id = laser_rep_id
             job_model.completed = complete
             jobfile.copiedemails = copiedemails

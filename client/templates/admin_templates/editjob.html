@@ -3,9 +3,7 @@
 {% block custom_css %}
 <style>
 .alert {
-  padding: 20px;
-  background-color: orange;
-  color: white;
+
 }
 
 .closebtn {
@@ -33,7 +31,7 @@
  <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-12">
-                                <div class="alert" id="box">
+                                <div class="alert" id="box" style="padding: 20px;background-color: orange;color: white;">
                                   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                   <strong>Note!</strong> Make sure to copy atleast four Laser staff as the will be notified of this action.
                                 </div>
@@ -57,35 +55,70 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-3">
                                                     <select class="select2 form-select shadow-none" style="width: 100%; height: 36px" name="client" id="client_id" >
-                                                        <option  selected disabled="true"> select client</option>
                                                         {%  for client in clients %}
-                                                           <option value="{{ client.id }}" {% if client.id == jobs.client_id.id %} selected {% endif %} >{{ client.username }}</option>
+                                                          <option value="{{ client.id }}" {% if client.id  == jobs.client_id.id %} selected {% endif %} >{{ client.username}}</option>
                                                         {%  endfor %}
                                                       </select>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <select class="select2 form-select shadow-none" style="width: 100%; height: 36px" name="field_id" id="field_id">
-                                                        <option value="{{fields.id}}">{{fields.field_name}}</option>
+                                                        {%  for field in fields %}
+                                                        <option value="{{field.id }}" {% if field.id  == jobs.field_id.id %} selected {% endif %} >{{ field.field_name}}</option>
+                                                        {%  endfor %}
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <select class="select2 form-select shadow-none" style="width: 100%; height: 36px" name="status" id="status">
-                                                        <option value="" disabled selected hidden>Select Job Level</option>
+                                                        <option value="">Select Job Level *</option>
                                                         {%  for status in statuses %}
                                                            <option value="{{status.id }}" {% if status.id  == jobs.jobstatus.id %} selected {% endif %} >{{ status.jobstatus}}</option>
                                                         {%  endfor %}
                                                       </select>
                                                 </div>
+                                                  <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="status1" id="status1">
+                                                        <option value="TEST" disabled selected >Select Job Level 2</option>
+                                                        {%  for status in statuses %}
+                                                           <option value="{{status.id }}" {% if status.id  == jobs.jobstatus1.id %} selected {% endif %}>{{ status.jobstatus}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="status2" id="status2">
+                                                        <option value="" disabled selected >Select Job Level 3</option>
+                                                        {%  for status in statuses %}
+                                                           <option value="{{status.id }}" {% if status.id  == jobs.jobstatus2.id %} selected {% endif %}>{{ status.jobstatus}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="status3" id="status3">
+                                                        <option value="" disabled selected >Select Job Level 4</option>
+                                                        {%  for status in statuses %}
+                                                           <option value="{{status.id }}" {% if status.id  == jobs.jobstatus3.id %} selected {% endif %}>{{ status.jobstatus}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="select2 form-select shadow-none" style="width: 100%;" name="status4" id="status4">
+                                                        <option value="" disabled selected >Select Job Level 5</option>
+                                                        {%  for status in statuses %}
+                                                           <option value="{{status.id }}" {% if status.id  == jobs.jobstatus4.id %} selected {% endif %}>{{ status.jobstatus}}</option>
+                                                        {%  endfor %}
+                                                    </select>
+                                                </div>
                                                 <div class="col-md-3">
                                                   <select class="select2 form-select shadow-none" style="width: 100%; height: 36px" name="laser_rep" id="laser_rep">
-                                                    <option value="" disabled selected hidden>Select Laser Representative</option>
+                                                    <option value="" disabled selected >Select Laser Representative</option>
                                                     {%  for laserrep in laserreps %}
                                                        <option value="{{laserrep.id }}"  {% if laserrep.id  == jobs.laserrep_id.id %} selected {% endif %}  >{{ laserrep.laserrep_name}}</option>
                                                     {%  endfor %}
                                                   </select>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
+                                        <div class="row mb-3">
                                             <div class="col-md-3">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                          <input id="pvt_number" type="text" class="form-control" value="{{jobs.pvt_number}}" name="pvt_number" placeholder="job-id"/>

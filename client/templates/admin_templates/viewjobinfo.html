@@ -2,10 +2,15 @@
 {% load static %}
 {% block custom_css %}
 <style>
-table, th, td {
+table, td {
 width:100%;
 border: 1px solid black;
 border-collapse: collapse;
+}
+th{
+ width:20%;
+ border: 1px solid black;
+ border-collapse: collapse;
 }
 th, td {
 padding: 10px;
@@ -38,8 +43,8 @@ text-align: left;
                                     <td>{{jobs.field_id}}</td>
                                     </tr>
                                     <tr>
-                                    <th>Level:</th>
-                                    <td>{{jobs.jobstatus}}</td>
+                                        <th>Job Progress:</th>
+                                        <td title="last updated {{jobs.updated_at}}">{{jobs.jobstatus}} >> {{jobs.jobstatus1}} >> {{jobs.jobstatus2}} >> {{jobs.jobstatus3}} >> {{jobs.jobstatus4}}</td>
                                     </tr>
                                     <tr>
                                     <th>Client Representative:</th>
