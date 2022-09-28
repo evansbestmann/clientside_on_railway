@@ -17,6 +17,7 @@ padding: 10px;
 text-align: left;
 }
 </style>
+
 {% endblock custom_css %}
 {% block main_content %}
  <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
@@ -39,8 +40,8 @@ text-align: left;
                                     <td>{{jobs.pvt_number}}</td>
                                     </tr>
                                     <tr>
-                                    <th>Field:</th>
-                                    <td>{{jobs.field_id}}</td>
+                                    <th>Location:</th>
+                                    <td>{{ jobs.field_id}}/{{ jobs.anyotherid}}</td>
                                     </tr>
                                     <tr>
                                         <th>Job Progress:</th>
@@ -72,7 +73,46 @@ text-align: left;
                                     </tr>
                                     </table>
                                 <br>
-                                       <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf.url }}', 'Laser Engineering Report for {{ jobs.pvt_number }}')" download>Download Report</a>
+                                    {% if jobs.pdf %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf.url }}', 'Laser Engineering Report for {{ jobs.file_title }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title }}</a>
+                                    {% else %}
+                                    {% endif %}
+                                    {% if jobs.pdf2 %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf2.url }}', 'Laser Engineering Report for {{ jobs.file_title2 }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title2 }}</a>
+                                    {% else %}
+                                    {% endif %}
+                                    {% if jobs.pdf3 %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf3.url }}', 'Laser Engineering Report for {{ jobs.file_title3 }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title3 }}</a>
+                                    {% else %}
+                                    {% endif %}
+                                    {% if jobs.pdf4 %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf4.url }}', 'Laser Engineering Report for {{ jobs.file_title4 }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title4 }}</a>
+                                    {% else %}
+                                    {% endif %}
+                                    {% if jobs.pdf5 %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf5.url }}', 'Laser Engineering Report for {{ jobs.file_title5 }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title5 }}</a>
+                                    {% else %}
+                                    {% endif %}
+                                    {% if jobs.pdf6 %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf6.url }}', 'Laser Engineering Report for {{ jobs.file_title6 }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title6 }}</a>
+                                    {% else %}
+                                    {% endif %}
+                                    {% if jobs.pdf7 %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf7.url }}', 'Laser Engineering Report for {{ jobs.file_title7 }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title7 }}</a>
+                                    {% else %}
+                                    {% endif %}
+                                    {% if jobs.pdf8 %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf8.url }}', 'Laser Engineering Report for {{ jobs.file_title8 }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title8 }}</a>
+                                    {% else %}
+                                    {% endif %}
+                                    {% if jobs.pdf9 %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf9.url }}', 'Laser Engineering Report for {{ jobs.file_title9 }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title9 }}</a>
+                                    {% else %}
+                                    {% endif %}
+                                    {% if jobs.pdf10 %}
+                                        <a class="btn btn-primary btn-sm" onclick="forceDownload('{{ jobs.pdf10.url }}', 'Laser Engineering Report for {{ jobs.file_title10 }} of  {{ jobs.pvt_number }}')" download><i class="fa fa-download" aria-hidden="true"></i> {{ jobs.file_title10 }}</a>
+                                    {% else %}
+                                    {% endif %}
                             </div>
        </div>
      </div>

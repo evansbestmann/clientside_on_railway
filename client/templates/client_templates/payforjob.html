@@ -15,7 +15,7 @@
                                         <form action="/transcation" method="post">
                                         {% csrf_token %}
                                             <div class="form-floating mb-3">
-                                                <input type="text" id="email" value="{{jobs.clientrep_email}}"  class="required form-control" name="email" placeholder="Payer email"/>
+                                                <input type="text" id="email" class="required form-control" name="email" placeholder="Payer email"/>
                                                 <label for="email">Payer email *</label>
                                             </div>
                                             <div class="form-floating mb-3">

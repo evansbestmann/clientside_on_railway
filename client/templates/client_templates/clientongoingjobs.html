@@ -33,7 +33,7 @@
                                     <thead>
                                         <tr>
                                           <th>Client</th>
-                                          <th>Field</th>
+                                          <th>Location</th>
                                           <th>Job ID</th>
                                           <th>Status</th>
                                           <th>Action</th>
@@ -42,7 +42,7 @@
                                     <tfoot>
                                         <tr>
                                           <th>Client</th>
-                                          <th>Field</th>
+                                          <th>Location</th>
                                           <th>Job ID</th>
                                           <th>Status</th>
                                           <th>Action</th>
@@ -52,7 +52,7 @@
                                             {% for job in ongoingjobs %}
                                             <tr>
                                               <td>{{ job.client_id}}</td>
-                                              <td>{{ job.field_id}}</td>
+                                              <td>{{ job.field_id}}/{{ job.anyotherid}}</td>
                                               <td>{{ job.pvt_number}}</td>
                                               <td>{{ job.completed}}</td>
                     <!--                          <td><a href="{% url 'viewjobinfoclient'  job_id=job.id %}" class="" style="color:black;">view</a></td>-->

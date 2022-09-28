@@ -34,7 +34,7 @@
                                     <thead>
                                         <tr>
                                           <th>Client</th>
-                                          <th>Field</th>
+                                          <th>Location</th>
                                           <th>Job ID</th>
                                           <th>Status</th>
                                           <th>More info</th>
@@ -44,7 +44,7 @@
                                     <tfoot>
                                         <tr>
                                           <th>Client</th>
-                                          <th>Field</th>
+                                          <th>Location</th>
                                           <th>Job ID</th>
                                           <th>Status</th>
                                           <th>More info</th>
@@ -55,7 +55,7 @@
                                         {% for job in Active %}
                                         <tr>
                                           <td>{{ job.client_id}}</td>
-                                          <td>{{ job.field_id}}</td>
+                                          <td>{{ job.field_id}}/{{ job.anyotherid}}</td>
                                           <td>{{ job.pvt_number}}</td>
                                           <td>{{ job.completed}}</td>
                                           <td><a href="{% url 'viewjobinfo'  job_id=job.id %}" class="btn btn-success" style="">view</a></td>

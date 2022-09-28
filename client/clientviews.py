@@ -105,9 +105,12 @@ def transcation(request):
         jobstatus_id = Dataset.objects.get(id=job_id).jobstatus_id
         clientrepmail = Dataset.objects.get(id=job_id).clientrep_email
         copiedemails = Dataset.objects.get(id=job_id).copiedemails
-        copiedemails1 = Dataset.objects.get(id=job_id).copiedemail1
+        copiedemails1 = Dataset.objects.get(id=job_id).copiedemails1
         copiedemails2 = Dataset.objects.get(id=job_id).copiedemails2
         copiedemails3 = Dataset.objects.get(id=job_id).copiedemails3
+        copiedemails4 = Dataset.objects.get(id=job_id).copiedemails4
+        copiedemails5 = Dataset.objects.get(id=job_id).copiedemails5
+        laser_mails = [copiedemails, copiedemails1, copiedemails2, copiedemails3, copiedemails4, copiedemails5]
 
         try:
             paymentset = Payment(job_id=job, email=email,amount=amount, slug=slug)
@@ -115,25 +118,11 @@ def transcation(request):
             try:
                 ### payment confirm client mail
                 context = {"pvt_number": pvt_number, "amount": amount, "clientrep": clientrep, }
-                mail_temp = "client_templates/payjobemail_template.html"
-                mail_msg = render_to_string(mail_temp, context=context)
-                mail_from = "labinfo@laser-ng.com"
-                subject = "Laser Engineering to recieve your Payment"
-                recipient = [clientrepmail,]
-                mail = EmailMessage(subject, mail_msg, mail_from, recipient)
-                mail.content_subtype = 'html'
-                mail.send()
-            except:
-                messages.error(request, "Make sure your internet is connected")
-                return HttpResponseRedirect(reverse("error"))
-            try:
-                ### payment confirm client mail
-                context = {"pvt_number": pvt_number, "amount": amount, "clientrep": clientrep, }
                 mail_temp = "client_templates/recievepaymentmail.html"
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
                 subject = "Laser Engineering to receive Payment"
-                recipient = [copiedemails,copiedemails1,copiedemails2,copiedemails3]
+                recipient = laser_mails
                 mail = EmailMessage(subject, mail_msg, mail_from, recipient)
                 mail.content_subtype = 'html'
                 mail.send()
@@ -215,9 +204,12 @@ def feedback_save(request):
         n6= int(complaint_response)
         score = n1+n2+n3+n4+n5+n6
         copiedemails = Dataset.objects.get(id=job_id).copiedemails
-        copiedemails1 = Dataset.objects.get(id=job_id).copiedemail1
+        copiedemails1 = Dataset.objects.get(id=job_id).copiedemails1
         copiedemails2 = Dataset.objects.get(id=job_id).copiedemails2
         copiedemails3 = Dataset.objects.get(id=job_id).copiedemails3
+        copiedemails4 = Dataset.objects.get(id=job_id).copiedemails4
+        copiedemails5 = Dataset.objects.get(id=job_id).copiedemails5
+        laser_mails = [copiedemails, copiedemails1, copiedemails2, copiedemails3, copiedemails4, copiedemails5]
         #print(score)
         try:
             job_id=Dataset.objects.get(id=job_id)
@@ -234,7 +226,7 @@ def feedback_save(request):
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
                 subject = "Laser Engineering Recieved Feedback"
-                recipient = [copiedemails,copiedemails1,copiedemails2,copiedemails3]
+                recipient = laser_mails
                 mail = EmailMessage(subject, mail_msg, mail_from, recipient)
                 mail.content_subtype = 'html'
                 mail.send()
