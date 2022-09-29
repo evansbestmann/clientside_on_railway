@@ -421,6 +421,7 @@ def addjob_save(request):
         jobstatus_id4 = JobStatus.objects.get(id=jobstatus4)
         laser_rep_id = LaserRep.objects.get(id=laser_rep)
         clientemail = CustomUser.objects.get(id=client).email
+        clientname = CustomUser.objects.get(id=client).username
         clientpassword = CustomUser.objects.get(id=client).password
         passwordsent = CustomUser.objects.get(id=client).sentpassword
         try:
@@ -436,7 +437,7 @@ def addjob_save(request):
             try:
 
                 context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
-                           "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,"uploaded_report":uploaded_report,}
+                           "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,"uploaded_report":uploaded_report,clientname:"clientname",}
                 mail_temp = "admin_templates/email_template.html"
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
@@ -679,13 +680,14 @@ def editjob_save(request):
         jobstatus_id4 = JobStatus.objects.get(id=jobstatus4)
         laser_rep_id = LaserRep.objects.get(id=laser_rep)
         clientemail = CustomUser.objects.get(id=client).email
+        clientname = CustomUser.objects.get(id=client).username
         clientpassword = CustomUser.objects.get(id=client).password
 
         ###mail part
         #mail for client rep
         try:
             context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep, "jobstatus_id": jobstatus_id,
-                       "clientemail": clientemail, "clientpassword": clientpassword,"uploaded_report":uploaded_report, }
+                       "clientemail": clientemail, "clientpassword": clientpassword,"uploaded_report":uploaded_report,clientname:"clientname", }
             mail_temp = "admin_templates/editjobemail_template.html"
             mail_msg = render_to_string(mail_temp, context=context)
             mail_from = "labinfo@laser-ng.com"
