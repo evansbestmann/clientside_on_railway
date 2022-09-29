@@ -422,6 +422,7 @@ def addjob_save(request):
         laser_rep_id = LaserRep.objects.get(id=laser_rep)
         clientemail = CustomUser.objects.get(id=client).email
         clientname = CustomUser.objects.get(id=client).username
+        print(clientname)
         clientpassword = CustomUser.objects.get(id=client).password
         passwordsent = CustomUser.objects.get(id=client).sentpassword
         try:
@@ -437,7 +438,7 @@ def addjob_save(request):
             try:
 
                 context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
-                           "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,"uploaded_report":uploaded_report,clientname:"clientname",}
+                           "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,"uploaded_report":uploaded_report,"clientname":clientname,}
                 mail_temp = "admin_templates/email_template.html"
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
@@ -681,13 +682,14 @@ def editjob_save(request):
         laser_rep_id = LaserRep.objects.get(id=laser_rep)
         clientemail = CustomUser.objects.get(id=client).email
         clientname = CustomUser.objects.get(id=client).username
-        clientpassword = CustomUser.objects.get(id=client).password
+        passwordsent = CustomUser.objects.get(id=client).sentpassword
+        print(clientname)
 
         ###mail part
         #mail for client rep
         try:
             context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep, "jobstatus_id": jobstatus_id,
-                       "clientemail": clientemail, "clientpassword": clientpassword,"uploaded_report":uploaded_report,clientname:"clientname", }
+                       "clientemail": clientemail, "passwordsent": passwordsent,"uploaded_report":uploaded_report,"clientname":clientname, }
             mail_temp = "admin_templates/editjobemail_template.html"
             mail_msg = render_to_string(mail_temp, context=context)
             mail_from = "labinfo@laser-ng.com"
@@ -702,7 +704,7 @@ def editjob_save(request):
         #mail for copied mails
         try:
             context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep, "jobstatus_id": jobstatus_id,
-                       "clientemail": clientemail, "clientpassword": clientpassword,"uploaded_report":uploaded_report, }
+                       "clientemail": clientemail,"uploaded_report":uploaded_report, }
             mail_temp = "admin_templates/emaileditcopied_template.html"
             mail_msg = render_to_string(mail_temp, context=context)
             mail_from = "labinfo@laser-ng.com"
