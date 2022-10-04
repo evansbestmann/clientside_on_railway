@@ -51,7 +51,7 @@ def jobdownload(request):
             # job = Dataset.objects.get(slug=job_id)
             test = Dataset.objects.get(slug=slug).jobkey  ### collected the value of jobkey
             ##print(test)
-            datecreated = Dataset.objects.get(slug=slug).created_at
+            datecreated = Dataset.objects.get(slug=slug).updated_at
             x = dt.now()
             #print(x)
             utc = pytz.UTC

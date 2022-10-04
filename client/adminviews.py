@@ -363,8 +363,7 @@ def addjob_save(request):
         file_title8 = request.POST.get("file_title8")
         file_title9 = request.POST.get("file_title9")
         file_title10 = request.POST.get("file_title10")
-        uploaded_report = (file_title, file_title2, file_title3, file_title4, file_title5, file_title6, file_title7,
-                           file_title8, file_title9, file_title10)
+
         #jobfile = request.FILES['jobfile']
         if request.FILES.get('jobfile', False):
             jobfile = request.FILES.get("jobfile")
@@ -438,7 +437,8 @@ def addjob_save(request):
             try:
 
                 context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
-                           "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,"uploaded_report":uploaded_report,"clientname":clientname,}
+                           "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,"file_title":file_title,"file_title2":file_title2,"file_title3":file_title3,"file_title4":file_title4,
+                       "file_title5":file_title5,"file_title6":file_title6,"file_title7":file_title7,"file_title8":file_title8,"file_title9":file_title9,"file_title10":file_title10,"clientname":clientname,}
                 mail_temp = "admin_templates/email_template.html"
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
@@ -452,8 +452,8 @@ def addjob_save(request):
                 return HttpResponseRedirect(reverse("addjob"))
             try:
                 context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
-                           "jobstatus_id": jobstatus_id,
-                           "clientemail": clientemail, "clientpassword": clientpassword,"uploaded_report":uploaded_report, }
+                           "jobstatus_id": jobstatus_id,"clientemail": clientemail, "clientpassword": clientpassword,"file_title":file_title,"file_title2":file_title2,"file_title3":file_title3,"file_title4":file_title4,
+                       "file_title5":file_title5,"file_title6":file_title6,"file_title7":file_title7,"file_title8":file_title8,"file_title9":file_title9,"file_title10":file_title10, }
                 mail_temp = "admin_templates/emailcopied_template.html"
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
@@ -620,8 +620,7 @@ def editjob_save(request):
         file_title8 = request.POST.get("file_title8")
         file_title9 = request.POST.get("file_title9")
         file_title10 = request.POST.get("file_title10")
-        uploaded_report = (file_title, file_title2, file_title3, file_title4, file_title5, file_title6, file_title7,
-                           file_title8, file_title9, file_title10)
+
         if request.FILES.get('jobfile', False):
             jobfile = request.FILES['jobfile']
         else:
@@ -689,7 +688,8 @@ def editjob_save(request):
         #mail for client rep
         try:
             context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep, "jobstatus_id": jobstatus_id,
-                       "clientemail": clientemail, "passwordsent": passwordsent,"uploaded_report":uploaded_report,"clientname":clientname, }
+                       "clientemail": clientemail, "passwordsent": passwordsent,"file_title":file_title,"file_title2":file_title2,"file_title3":file_title3,"file_title4":file_title4,
+                       "file_title5":file_title5,"file_title6":file_title6,"file_title7":file_title7,"file_title8":file_title8,"file_title9":file_title9,"file_title10":file_title10,"clientname":clientname, }
             mail_temp = "admin_templates/editjobemail_template.html"
             mail_msg = render_to_string(mail_temp, context=context)
             mail_from = "labinfo@laser-ng.com"
@@ -704,7 +704,8 @@ def editjob_save(request):
         #mail for copied mails
         try:
             context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep, "jobstatus_id": jobstatus_id,
-                       "clientemail": clientemail,"uploaded_report":uploaded_report, }
+                       "clientemail": clientemail,"file_title":file_title,"file_title2":file_title2,"file_title3":file_title3,"file_title4":file_title4,
+                       "file_title5":file_title5,"file_title6":file_title6,"file_title7":file_title7,"file_title8":file_title8,"file_title9":file_title9,"file_title10":file_title10, }
             mail_temp = "admin_templates/emaileditcopied_template.html"
             mail_msg = render_to_string(mail_temp, context=context)
             mail_from = "labinfo@laser-ng.com"
