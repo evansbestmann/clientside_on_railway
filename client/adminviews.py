@@ -38,7 +38,7 @@ def addclient_save(request):
             user.save()
             # print(user.client.sentpassword)
             messages.success(request,"client added successfully")
-            return HttpResponseRedirect(reverse("addclient"))
+            return HttpResponseRedirect(reverse("manageclient"))
         except:
             messages.error(request, "Failed to add client")
             return HttpResponseRedirect(reverse("addclient"))
@@ -74,7 +74,7 @@ def editclient_save(request):
             user.client.client_name = client_name
             client.save()
             # print(user.password)
-            #messages.success(request, "client Edited successfully")
+            messages.success(request, "client Edited successfully")
             return HttpResponseRedirect(reverse("manageclient"))
         except:
             messages.error(request, "Failed to edit client")
