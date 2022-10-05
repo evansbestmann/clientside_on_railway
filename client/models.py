@@ -111,7 +111,7 @@ class Dataset(models.Model):
     pdf9 = models.FileField(upload_to='raw/', blank=True, null=True)
     pdf10 = models.FileField(upload_to='raw/', blank=True, null=True)
     anyotherid=models.CharField(max_length=255,blank=True, null=True)
-    progressreport= models.CharField(max_length=10000,blank=True, null=True)
+    progressreport= models.CharField(max_length=30000,blank=True, null=True)
     completed = models.CharField(choices=choices, max_length=8, default="Active")
     created_at = models.DateTimeField(default=timezone.now())
     updated_at = models.DateTimeField(auto_now=True)
