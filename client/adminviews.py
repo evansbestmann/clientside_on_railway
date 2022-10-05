@@ -520,7 +520,7 @@ def addjob_save(request):
             return HttpResponseRedirect(reverse("managejob"))
         except:
             messages.error(request, "Job add Failed, Make sure to all fields")
-        return HttpResponseRedirect(reverse("managejob"))
+        return HttpResponseRedirect(reverse("addjob"))
 
 def managejob(request):
     Active = Dataset.objects.filter(completed="Active").order_by("-id")
