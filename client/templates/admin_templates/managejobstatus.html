@@ -7,6 +7,20 @@
    <li class="breadcrumb-item active">Manage Job Level</li>
  </ol>
  <div class="row">
+     <div class="small" id="box">
+                                            {% if messages %}
+                                                   <div>
+                                                     {% for message in messages %}
+                                                     {% if message.tags == 'error' %}
+                                                     <div class="alert alert-danger">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% if message.tags == 'success' %}
+                                                     <div class="alert alert-success">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% endfor %}
+                                                   </div>
+                                                {% endif %}
+                                        </div>
      <div class="col-xl-12">
        <div class="card mb-4">
                             <div class="card-header">
@@ -20,6 +34,7 @@
                                           <th>ID</th>
                                           <th>Status Name</th>
                                           <th>Action</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -27,6 +42,7 @@
                                           <th>ID</th>
                                           <th>Status Name</th>
                                           <th>Action</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -36,6 +52,10 @@
                                               <td>{{ status.jobstatus}}</td>
                     <!--                            standard pytdon way of passing particular variable_id from views where kwargs={"variable_id":variable_id}-->
                                               <td><a href="{% url 'editjobstatus'  status_id=status.id %}" class="btn btn-success">Edit</a></td>
+                                                <td><form action="/deletestatus" method="post" enctype="multipart/form-data">
+                                              {% csrf_token %}
+                                              <input id="status_id" type="hidden" class="required form-control" name="status_id" value="{{status.id}}"/> <button class="btn btn-success">Delete</button>
+                                              </form></td>
                                             </tr>
                                             {% endfor %}
                                     </tbody>
@@ -44,4 +64,15 @@
        </div>
      </div>
  </div>
+<script>
+	setTimeout(() => {
+  const box = document.getElementById('box');
+
+  // 👇️ removes element from DOM
+  box.style.display = 'none';
+
+  // 👇️ hides element (still takes up space on page)
+  // box.style.visibility = 'hidden';
+}, 1000); // 👈️ time in milliseconds
+</script>
 {% endblock main_content %}

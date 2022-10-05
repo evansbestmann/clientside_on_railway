@@ -62,13 +62,10 @@ def editclient_save(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         address = request.POST.get("address")
-        password = request.POST.get("password")
         client_name = username
-        print(username,client_name,password)
         try:
             user = CustomUser.objects.get(id=client_id)
             user.username = username
-            user.password = password
             user.email = email
             user.save()
 
@@ -82,6 +79,21 @@ def editclient_save(request):
         except:
             messages.error(request, "Failed to edit client")
             return HttpResponseRedirect(reverse("editclient",kwargs={"client_id":client_id}))
+
+def deleteclient(request):
+    client_id = request.POST.get("client_id")
+    if client_id == None:
+        return HttpResponseRedirect(reverse("manageclient"))
+    try:
+        user = CustomUser.objects.get(id=client_id)
+        client = Client.objects.get(admin=client_id)
+        user.delete()
+        client.delete()
+        messages.success(request, "Client Deleted successfully")
+        return HttpResponseRedirect(reverse("manageclient"))
+    except:
+        messages.error(request, "Client Failed to delete")
+        return HttpResponseRedirect(reverse("manageclient"))
 
 
 def addfield(request):
@@ -99,7 +111,7 @@ def addfield_save(request):
             field_model = Fields(client_id=client, field_name=field_name)
             field_model.save()
             messages.success(request, "Field added successfully")
-            return HttpResponseRedirect(reverse("addfield"))
+            return HttpResponseRedirect(reverse("managefield"))
         except:
             messages.error(request, "Failed to edit client")
             return HttpResponseRedirect(reverse("addfield"))
@@ -135,6 +147,19 @@ def editfield_save(request):
         except:
                 messages.error(request, "Failed to edit client")
                 return HttpResponseRedirect(reverse("editfield",kwargs={"field_id":field_id}))
+
+def deletefield(request):
+    field_id = request.POST.get("field_id")
+    if field_id == None:
+        return HttpResponseRedirect(reverse("managefield"))
+    try:
+        field = Fields.objects.get(id=field_id)
+        field.delete()
+        messages.success(request, "Field Deleted successfully")
+        return HttpResponseRedirect(reverse("managefield"))
+    except:
+        messages.error(request, "Field Failed to delete")
+        return HttpResponseRedirect(reverse("managefield"))
 
 def addlaserrep(request):
     return render(request, "admin_templates/addlaserrep.html")
@@ -185,6 +210,19 @@ def editlaserrep_save(request):
            messages.error(request, "Failed to edit  Representative")
            return HttpResponseRedirect(reverse("editreps",kwargs={"rep_id":rep_id}))
 
+def deletelaserrep(request):
+    rep_id = request.POST.get("rep_id")
+    if rep_id == None:
+        return HttpResponseRedirect(reverse("managereps"))
+    try:
+        rep = LaserRep.objects.get(id=rep_id)
+        rep.delete()
+        messages.success(request, "Rep Deleted successfully")
+        return HttpResponseRedirect(reverse("managereps"))
+    except:
+        messages.error(request, "Rep Failed to delete")
+        return HttpResponseRedirect(reverse("managereps"))
+
 def addjobstatus(request):
     fields = Fields.objects.all()
     clients = Client.objects.all()
@@ -229,6 +267,19 @@ def editjobstatus_save(request):
         except:
             messages.error(request, "Failed to edit  Status")
             return HttpResponseRedirect(reverse("editjobstatus",kwargs={"status_id":status_id}))
+
+def deletestatus(request):
+    status_id = request.POST.get("status_id")
+    if status_id == None:
+        return HttpResponseRedirect(reverse("managejobstatus"))
+    try:
+        status = JobStatus.objects.get(id=status_id)
+        status.delete()
+        messages.success(request, "Level Deleted successfully")
+        return HttpResponseRedirect(reverse("managejobstatus"))
+    except:
+        messages.error(request, "Level Failed to delete")
+        return HttpResponseRedirect(reverse("managejobstatus"))
 
 def addjob(request):
     clients=CustomUser.objects.filter(user_type=2)
@@ -762,6 +813,19 @@ def editjob_save(request):
         except:
             messages.error(request, "Job edit Failed")
             return HttpResponseRedirect(reverse("editjob", kwargs={"job_id": job_id}))
+
+def deletejob(request):
+    job_id = request.POST.get("job_id")
+    if job_id == None:
+        return HttpResponseRedirect(reverse("managejob"))
+    try:
+        jobs = Dataset.objects.get(id=job_id)
+        jobs.delete()
+        messages.success(request, "Job Deleted successfully")
+        return HttpResponseRedirect(reverse("managejob"))
+    except:
+        messages.error(request, "Job Failed to delete")
+        return HttpResponseRedirect(reverse("managejob"))
 
 def viewjobinfo(request, job_id):
     jobs = Dataset.objects.get(id=job_id)

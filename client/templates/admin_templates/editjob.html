@@ -73,7 +73,20 @@
                             <div class="col-lg-12">
 <!--                                <div class="alert" id="box" style="padding: 20px;background-color: orange;color: white;">-->
 <!--                                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>-->
-<!--                                  <strong>Note!</strong> Make sure to copy atleast four Laser staff as the will be notified of this action.-->
+<!--                                  <div class="small">
+                                            {% if messages %}
+                                                   <div>
+                                                     {% for message in messages %}
+                                                     {% if message.tags == 'error' %}
+                                                     <div class="alert alert-danger">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% if message.tags == 'success' %}
+                                                     <div class="alert alert-success">{{ message }}</div>
+                                                     {% endif %}
+                                                     {% endfor %}
+                                                   </div>
+                                                {% endif %}
+                                        </div>
 <!--                                </div>-->
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-body">
@@ -306,7 +319,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-3">
                                                                 <fieldset class="float-label-field">
-                                                              <input  name='clientrepmail' type="email" autocomplete="false"  placeholder="Primary Email * {{jobs.clientrep_email}}">
+                                                              <input  name='clientrepmail' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email}}">
                                                             </fieldset>
                                                 </div>
                                                 <div class="col-md-3">
@@ -350,7 +363,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-3">
                                                                 <fieldset class="float-label-field">
-                                                              <input  name='clientrepmail8' type="email" autocomplete="false"  placeholder="jobs.clientrep_email8">
+                                                              <input  name='clientrepmail8' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email8}}">
                                                             </fieldset>
                                                 </div>
                                                 <div class="col-md-3">

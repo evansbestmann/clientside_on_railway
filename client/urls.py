@@ -18,18 +18,21 @@ urlpatterns = [
     path('manageclient', av.manageclient, name='manageclient'),
     path('editclient/<str:client_id>', av.editclient, name='editclient'),
     path('editclient_save', av.editclient_save, name='editclient_save'),
+    path('deleteclient', av.deleteclient, name='deleteclient'),
     
     path('addfield', av.addfield, name='addfield'),
     path('addfield_save', av.addfield_save, name='addfield_save'),
     path('managefield', av.managefield, name='managefield'),
     path('editfield/<str:field_id>', av.editfield, name='editfield'),
     path('editfield_save', av.editfield_save, name='editfield_save'),
+    path('deletefield', av.deletefield, name='deletefield'),
 
     path('addlaserrep', av.addlaserrep, name='addlaserrep'),
     path('addlaserrep_save', av.addlaserrep_save, name='addlaserrep_save'),
     path('managereps', av.managelaserrep, name='managereps'),
     path('editreps/<str:rep_id>', av.editreps, name='editreps'),
     path('editlaserrep_save', av.editlaserrep_save, name='editlaserrep_save'),
+    path('deletelaserrep', av.deletelaserrep, name='deletelaserrep'),
 
 
     path('addjobstatus', av.addjobstatus, name='addjobstatus'),
@@ -38,6 +41,7 @@ urlpatterns = [
     path('editjobstatus/<str:status_id>', av.editjobstatus, name='editjobstatus'),
     #path('getfield', av.getfield, name='getfield'),
     path('editjobstatus_save', av.editjobstatus_save, name='editjobstatus_save'),
+    path('deletestatus', av.deletestatus, name='deletestatus'),
 
     path('addjob', av.addjob, name='addjob'),
     path('addjob_save', av.addjob_save, name='addjob_save'),
@@ -46,6 +50,7 @@ urlpatterns = [
     path('editjob/<str:job_id>', av.editjob, name='editjob'),
     path('getfieldsedit', av.getfieldsedit, name='getfieldsedit'),
     path('editjob_save', av.editjob_save, name='editjob_save'),
+    path('deletejob', av.deletejob, name='deletejob'),
     path('viewjobinfo/<str:job_id>', av.viewjobinfo, name='viewjobinfo'),
     path('viewfeedback', av.viewfeedback, name='viewfeedback'),
     path('viewfeedbackdetail/<str:job_id>', av.viewfeedbackdetail, name='viewfeedbackdetail'),
