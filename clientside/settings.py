@@ -26,9 +26,9 @@ SECRET_KEY="django-insecure-o_(8gg3ifh8mt6z@!5+&4ushdbipo!zq8p6o46uxpqy=u=-y$b"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =False
 
+CSRF_TRUSTED_ORIGINS = ["https://clientsideonrailway-production.up.railway.app"]
 # ALLOWED_HOSTS = ['127.0.0.1','localhost','0.0.0.0','laser-datashare.herokuapp.com']
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ["clientsideonrailway-production.up.railway.app"]
 # Application definition 
 
 INSTALLED_APPS = [
@@ -50,7 +50,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'client.LoginCheckMiddleWare.LoginCheckMiddleWare',
 ]
 
 ROOT_URLCONF = 'clientside.urls'
@@ -146,7 +145,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
