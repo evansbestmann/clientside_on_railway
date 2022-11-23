@@ -12,9 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku 
-import dj_database_url
-
 #from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,7 +52,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'client.LoginCheckMiddleWare.LoginCheckMiddleWare',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'clientside.urls'
@@ -148,8 +144,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"#part of heroku config
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -173,7 +167,4 @@ PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACK_SECRET_KEY")
 #HOST_URL = "https://192.168.43.17:8000"
 
 #heroku config
-db_from_env=dj_database_url.config(conn_max_age=600)
-DATABASES["default"].update(db_from_env)
 
-django_heroku.settings(locals())
