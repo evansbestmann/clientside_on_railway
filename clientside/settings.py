@@ -143,7 +143,7 @@ CLOUDINARY_STORAGE = {
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'#cloudinary settings
 
-STATIC_URL = '/static/'
+STATIC_URL = '/clientside/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
