@@ -26,6 +26,9 @@ SECRET_KEY="django-insecure-o_(8gg3ifh8mt6z@!5+&4ushdbipo!zq8p6o46uxpqy=u=-y$b"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =True
 
+if not DEBUG:
+  CSRF_TRUSTED_ORIGINS = ["https://clientsideonrailway-production.up.railway.app"]
+
 # ALLOWED_HOSTS = ['127.0.0.1','localhost','0.0.0.0','laser-datashare.herokuapp.com']
 ALLOWED_HOSTS = ["clientsideonrailway-production.up.railway.app"]
 
@@ -165,8 +168,7 @@ MAILJET_API_SECRET = os.environ.get("MAILJET_API_SECRET")
 PAYSTACK_PUBLIC_KEY = os.environ.get("PAYSTACK_PUBLIC_KEY")
 PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACK_SECRET_KEY")
 
-if not DEBUG:
-CSRF_TRUSTED_ORIGINS = [‘https://clientsideonrailway-production.up.railway.app’]
+
 #website config
 #HOST_URL = "https://192.168.43.17:8000"
 
