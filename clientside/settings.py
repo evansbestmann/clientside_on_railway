@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'clientside.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':  'railway',
+        'USER': 'postgres',
+        'PASSWORD':'eXH7Cj309p1uxMXsnAVs',
+        'HOST': 'containers-us-west-58.railway.app',
+        'PORT':'7489'
         # 'ENGINE': 'django.db.backends.mysql',
         # 'NAME':  'client_data_system',
         # 'USER': 'client_data_system',
@@ -140,10 +144,10 @@ CLOUDINARY_STORAGE = {
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'#cloudinary settings
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
