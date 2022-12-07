@@ -5,6 +5,7 @@
  <ol class="breadcrumb mb-4">
    <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
    <li class="breadcrumb-item active">Manage All Jobs</li>
+   <li class="breadcrumb-item"><a href="/addjob">Add Job</a></li>
  </ol>
  <div class="row">
       <div class="col-xl-3 col-md-4"  style="width:33%;">
@@ -79,6 +80,10 @@
                                           <td><form action="/deletejob" method="post" enctype="multipart/form-data">
                                               {% csrf_token %}
                                               <input id="job_id" type="hidden" class="required form-control" name="job_id" value="{{job.id}}"/> <button class="btn btn-success">Delete</button>
+                                          </form></td>
+                                          <td><form action="/sendmail" method="post" enctype="multipart/form-data">
+                                              {% csrf_token %}
+                                              <input type="hidden" class="required form-control" name="job_id" value="{{job.id}}"/> <button class="btn btn-success">Delete</button>
                                           </form></td>
                                         </tr>
                                         {% endfor %}

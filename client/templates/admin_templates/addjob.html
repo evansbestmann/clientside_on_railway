@@ -6,14 +6,7 @@
 
 }
 .closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
+
 }
 
 .closebtn:hover {
@@ -60,16 +53,21 @@
   transition: all 0.2s ease;
   font-weight: bold;
 }
+.mmBoxes{
+  background-color: white;
+}
 }
 </style>
 {% endblock custom_css %}
 
 {% block main_content %}
-
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script src="{%  static 'js/MultiMailPlugin.js' %}"></script>
  <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
  <ol class="breadcrumb mb-4">
    <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
    <li class="breadcrumb-item active">Add Job</li>
+   <li class="breadcrumb-item"><a href="/managejob">Manage Jobs</a></li>
  </ol>
  <div class="container">
 
@@ -81,9 +79,9 @@
 <!--                                </div>-->
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-body" style="width:100%;">
-                                        <form action="/addjob_save" method="post" enctype="multipart/form-data" >
+                                        <form action="/addjob_save" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        <div style="display:flex;">
+                                         <div style="display:flex;">
 
                                             <div class="col-md-10">
                                             <div class="row mb-3" >
@@ -191,6 +189,7 @@
                                                 </div>
 
                                             </div>
+
                                              <div class="form-floating mb-3">
                                                     <div id="sample">
                                                             <script type="text/javascript">
@@ -310,111 +309,20 @@
 
                                                     </div>
                                                 </div>
-                                            <h5> + Tag Client Representative [ Add mails left to right from the primary mail ]</h5>
-                                            <div class="row mb-3">
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='clientrepmail' type="email" autocomplete="false" placeholder="PrimaryEmail *">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail1' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail2' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input id="txtEmail" name='clientrepmail3' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='clientrepmail4' type="email" autocomplete="false" placeholder="Email">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail5' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail6' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input name='clientrepmail7' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='clientrepmail8' type="email" autocomplete="false" placeholder="Email">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail9' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail10' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input name='clientrepmail11' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                            </div>
-                                            <h5>  + Tag Laser Staff</h5>
-                                            <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='copiedemails' type="email" autocomplete="false" placeholder="Primary Email *">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='copiedemails1' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail2' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
+
+                                            <h5> + Tag Emails [ Client Representative & Laser Parties ]</h5>
+<!--                                             testing-->
+                                                <div id="outer" class="mmOuter">
+                                                        <input id="input" class="form-control multiMail" style="background-color: #fff;border-color: #6b7280;border-width: 1px;border-radius: 0;padding-top: 0.5rem;padding-right: 0.75rem;padding-bottom: 0.5rem;padding-left: 0.75rem;font-size: 1rem;line-height: 1.5rem;width: 99%;"/>
+                                                        <input id="mails" name="mails"  class="multiMailResult" style="background-color: #fff;" />
+                                                        <div id="boxes" class="mmBoxes"></div>
                                                 </div>
 
                                             </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                                  <input name='copiedemails3' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='copiedemails4' type="email" autocomplete="false" placeholder="Email">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='copiedemails5' type="email" autocomplete="false" placeholder="Email">
-                                                                </fieldset>
-                                                </div>
-                                                </div>
 
-                                            </div>
+
+
+
                                                  <div class="col-md-2" style="margin-left:0.2cm;">
                                                      <h4>Add Files +</h4>
                                                      <div class="row mb-12">
@@ -455,8 +363,9 @@
                                                  </div>
                                         </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">Submit</button></div>
+                                                <div class="d-grid"><button type="submit" class="btn btn-primary btn-block" onclick="sendmail()">Submit</button></div>
                                             </div>
+
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
@@ -547,17 +456,12 @@
   // box.style.visibility = 'hidden';
 }, 8000); // 👈️ time in milliseconds
 </script>
-<script type="text/javascript">
-      $('head').append('<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css">');
-        $('input').focus(function(event) {
-          $(this).closest('.float-label-field').addClass('float').addClass('focus');
-        })
+<script>
+var input1 = $(".multiMail").multiMailInput({
+	placeholder: "Add or Paste valid mails ,Press comma or tab"
+});
+var mails = input1.getMails();
 
-        $('input').blur(function() {
-          $(this).closest('.float-label-field').removeClass('focus');
-          if (!$(this).val()) {
-            $(this).closest('.float-label-field').removeClass('float');
-          }
-        });
+console.log(mails);
 </script>
 {% endblock custom_js %}

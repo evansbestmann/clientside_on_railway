@@ -63,6 +63,8 @@
 </style>
 {% endblock custom_css %}
 {% block main_content %}
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script src="{%  static 'js/MultiMailPlugin.js' %}"></script>
  <h1 class="page-title">{% block page_title %}Admin{% endblock page_title %}</h1>
  <ol class="breadcrumb mb-4">
    <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
@@ -71,23 +73,7 @@
  <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-12">
-<!--                                <div class="alert" id="box" style="padding: 20px;background-color: orange;color: white;">-->
-<!--                                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>-->
-<!--                                  <div class="small">
-                                            {% if messages %}
-                                                   <div>
-                                                     {% for message in messages %}
-                                                     {% if message.tags == 'error' %}
-                                                     <div class="alert alert-danger">{{ message }}</div>
-                                                     {% endif %}
-                                                     {% if message.tags == 'success' %}
-                                                     <div class="alert alert-success">{{ message }}</div>
-                                                     {% endif %}
-                                                     {% endfor %}
-                                                   </div>
-                                                {% endif %}
-                                        </div>
-<!--                                </div>-->
+
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-body">
                                         <form action="/editjob_save" method="post" enctype="multipart/form-data" autocomplete="off">
@@ -206,6 +192,13 @@
                                             <div class="form-floating mb-3">
                                                     <div id="sample">
                                                             <script type="text/javascript">
+                                                            /* NicEdit - Micro Inline WYSIWYG
+                                                             * Copyright 2007-2008 Brian Kirchoff
+                                                             *
+                                                             * NicEdit is distributed under the terms of the MIT license
+                                                             * For more information visit http://nicedit.com/
+                                                             * Do not remove this copyright message
+                                                             */
                                                             var bkExtend=function(){var A=arguments;if(A.length==1){A=[this,A[0]]}for(var B in A[1]){A[0][B]=A[1][B]}return A[0]};function bkClass(){}bkClass.prototype.construct=function(){};bkClass.extend=function(C){var A=function(){if(arguments[0]!==bkClass){return this.construct.apply(this,arguments)}};var B=new this(bkClass);bkExtend(B,C);A.prototype=B;A.extend=this.extend;return A};var bkElement=bkClass.extend({construct:function(B,A){if(typeof (B)=="string"){B=(A||document).createElement(B)}B=$BK(B);return B},appendTo:function(A){A.appendChild(this);return this},appendBefore:function(A){A.parentNode.insertBefore(this,A);return this},addEvent:function(B,A){bkLib.addEvent(this,B,A);return this},setContent:function(A){this.innerHTML=A;return this},pos:function(){var C=curtop=0;var B=obj=this;if(obj.offsetParent){do{C+=obj.offsetLeft;curtop+=obj.offsetTop}while(obj=obj.offsetParent)}var A=(!window.opera)?parseInt(this.getStyle("border-width")||this.style.border)||0:0;return[C+A,curtop+A+this.offsetHeight]},noSelect:function(){bkLib.noSelect(this);return this},parentTag:function(A){var B=this;do{if(B&&B.nodeName&&B.nodeName.toUpperCase()==A){return B}B=B.parentNode}while(B);return false},hasClass:function(A){return this.className.match(new RegExp("(\\s|^)nicEdit-"+A+"(\\s|$)"))},addClass:function(A){if(!this.hasClass(A)){this.className+=" nicEdit-"+A}return this},removeClass:function(A){if(this.hasClass(A)){this.className=this.className.replace(new RegExp("(\\s|^)nicEdit-"+A+"(\\s|$)")," ")}return this},setStyle:function(A){var B=this.style;for(var C in A){switch(C){case"float":B.cssFloat=B.styleFloat=A[C];break;case"opacity":B.opacity=A[C];B.filter="alpha(opacity="+Math.round(A[C]*100)+")";break;case"className":this.className=A[C];break;default:B[C]=A[C]}}return this},getStyle:function(A,C){var B=(!C)?document.defaultView:C;if(this.nodeType==1){return(B&&B.getComputedStyle)?B.getComputedStyle(this,null).getPropertyValue(A):this.currentStyle[bkLib.camelize(A)]}},remove:function(){this.parentNode.removeChild(this);return this},setAttributes:function(A){for(var B in A){this[B]=A[B]}return this}});var bkLib={isMSIE:(navigator.appVersion.indexOf("MSIE")!=-1),addEvent:function(C,B,A){(C.addEventListener)?C.addEventListener(B,A,false):C.attachEvent("on"+B,A)},toArray:function(C){var B=C.length,A=new Array(B);while(B--){A[B]=C[B]}return A},noSelect:function(B){if(B.setAttribute&&B.nodeName.toLowerCase()!="input"&&B.nodeName.toLowerCase()!="textarea"){B.setAttribute("unselectable","off")}for(var A=0;A<B.childNodes.length;A++){bkLib.noSelect(B.childNodes[A])}},camelize:function(A){return A.replace(/\-(.)/g,function(B,C){return C.toUpperCase()})},inArray:function(A,B){return(bkLib.search(A,B)!=null)},search:function(A,C){for(var B=0;B<A.length;B++){if(A[B]==C){return B}}return null},cancelEvent:function(A){A=A||window.event;if(A.preventDefault&&A.stopPropagation){A.preventDefault();A.stopPropagation()}return false},domLoad:[],domLoaded:function(){if(arguments.callee.done){return }arguments.callee.done=true;for(i=0;i<bkLib.domLoad.length;i++){bkLib.domLoad[i]()}},onDomLoaded:function(A){this.domLoad.push(A);if(document.addEventListener){document.addEventListener("DOMContentLoaded",bkLib.domLoaded,null)}else{if(bkLib.isMSIE){document.write("<style>.nicEdit-main p { margin: 0; }</style><script id=__ie_onload defer "+((location.protocol=="https:")?"src='javascript:void(0)'":"src=//0")+"><\/script>");$BK("__ie_onload").onreadystatechange=function(){if(this.readyState=="complete"){bkLib.domLoaded()}}}}window.onload=bkLib.domLoaded}};function $BK(A){if(typeof (A)=="string"){A=document.getElementById(A)}return(A&&!A.appendTo)?bkExtend(A,bkElement.prototype):A}var bkEvent={addEvent:function(A,B){if(B){this.eventList=this.eventList||{};this.eventList[A]=this.eventList[A]||[];this.eventList[A].push(B)}return this},fireEvent:function(){var A=bkLib.toArray(arguments),C=A.shift();if(this.eventList&&this.eventList[C]){for(var B=0;B<this.eventList[C].length;B++){this.eventList[C][B].apply(this,A)}}}};function __(A){return A}Function.prototype.closure=function(){var A=this,B=bkLib.toArray(arguments),C=B.shift();return function(){if(typeof (bkLib)!="undefined"){return A.apply(C,B.concat(bkLib.toArray(arguments)))}}};Function.prototype.closureListener=function(){var A=this,C=bkLib.toArray(arguments),B=C.shift();return function(E){E=E||window.event;if(E.target){var D=E.target}else{var D=E.srcElement}return A.apply(B,[E,D].concat(C))}};
 
 
@@ -229,7 +222,7 @@
                                                                     'outdent' : {name : __('Remove Indent'), command : 'outdent', noActive : true},
                                                                     'hr' : {name : __('Horizontal Rule'), command : 'insertHorizontalRule', noActive : true}
                                                                 },
-                                                                iconsPath : "{% static 'js/nicEditorIcons.gif' %}",
+                                                                iconsPath : "{%  static 'assets/img/nicEditorIcons.gif' %}",
                                                                 buttonList : ['save','bold','italic','underline','left','center','right','justify','ol','ul','fontSize','fontFamily','fontFormat','indent','outdent','image','upload','link','unlink','forecolor','bgcolor'],
                                                                 iconList : {"bgcolor":1,"forecolor":2,"bold":3,"center":4,"hr":5,"indent":6,"italic":7,"justify":8,"left":9,"ol":10,"outdent":11,"removeformat":12,"right":13,"save":24,"strikethrough":15,"subscript":16,"superscript":17,"ul":18,"underline":19,"image":20,"link":21,"unlink":22,"close":23,"arrow":25}
 
@@ -307,116 +300,20 @@
                                                                 bkLib.onDomLoaded(function() {
                                                                     new nicEditor({fullPanel : true}).panelInstance('progressreport');
                                                                 });
-                                                                </script>
+                                                            </script>
                                                     </div>
                                                     <div class="col-md-12" >
                                                             <label for="progressreport">Add job progress report</label>
-                                                            <textarea name="progressreport" cols="100" rows="5"  class="form-control" id="progressreport">{{jobs.progressreport}}</textarea>
+                                                            <textarea name="progressreport" cols="100" rows="5"  class="form-control" id="progressreport"></textarea>
 
                                                     </div>
                                                 </div>
-                                            <h5> + Tag Client Representative [ Add mails left to right from the primary mail ]</h5>
-                                            <div class="row mb-3">
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='clientrepmail' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email}}">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail1' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email1}}">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail2' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email2}}">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input id="txtEmail" name='clientrepmail3' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email3}}">
-                                                                </fieldset>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='clientrepmail4' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email4}}">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail5' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email5}}">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail6' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email6}}">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input name='clientrepmail7' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email7}}">
-                                                                </fieldset>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='clientrepmail8' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email8}}">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail9' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email9}}">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail10' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email10}}">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-3">
-                                                                <fieldset class="float-label-field">
-                                                                  <input name='clientrepmail11' type="email" autocomplete="false"  placeholder="{{jobs.clientrep_email11}}">
-                                                                </fieldset>
-                                                </div>
-                                            </div>
-                                            <h5>  + Tag Laser Staff</h5>
-                                            <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='copiedemails' type="email" autocomplete="false"  placeholder="{{jobs.copiedemails}}">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='copiedemails1' type="email" autocomplete="false"  placeholder="{{jobs.copiedemails1}}">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='clientrepmail2' type="email" autocomplete="false"  placeholder="{{jobs.copiedemails2}}">
-                                                                </fieldset>
-                                                </div>
-
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                                  <input name='copiedemails3' type="email" autocomplete="false"  placeholder="{{jobs.copiedemails3}}">
-                                                                </fieldset>
-                                                </div>
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                              <input  name='copiedemails4' type="email" autocomplete="false"  placeholder="{{jobs.copiedemails4}}">
-                                                            </fieldset>
-                                                </div>
-                                                <div class="col-md-4">
-                                                                <fieldset class="float-label-field">
-                                                                  <input  name='copiedemails5' type="email" autocomplete="false"  placeholder="{{jobs.copiedemails5}}">
-                                                                </fieldset>
-                                                </div>
+                                           <h5> + Tag Emails [ Client Representative & Laser Parties ]</h5>
+<!--                                             testing-->
+                                                <div id="outer" class="mmOuter">
+                                                        <input id="input" class="form-control multiMail" style="background-color: #fff;border-color: #6b7280;border-width: 1px;border-radius: 0;padding-top: 0.5rem;padding-right: 0.75rem;padding-bottom: 0.5rem;padding-left: 0.75rem;font-size: 1rem;line-height: 1.5rem;width: 99%;"/>
+                                                        <input id="mails" name="mails" class="multiMailResult" style="background-color: #fff;" />
+                                                        <div id="boxes" class="mmBoxes"></div>
                                                 </div>
                                         </div>
                                             </div>
@@ -604,5 +501,13 @@
             $(this).closest('.float-label-field').removeClass('float');
           }
         });
+</script>
+<script>
+var input1 = $(".multiMail").multiMailInput({
+	placeholder: "Add or Paste valid mails ,Press comma or tab"
+});
+var mails = input1.getMails();
+
+console.log(mails);
 </script>
 {% endblock custom_js %}

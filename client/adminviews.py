@@ -11,6 +11,9 @@ from django.core.mail import EmailMessage,send_mail
 from django.template.loader import render_to_string
 from mailjet_rest import Client
 from .models import *
+
+from post_office import mail
+
 def admin_home(request):
     return render (request,"admin_templates/home_content.html")
 
@@ -304,83 +307,11 @@ def addjob_save(request):
         field = request.POST.get("field_id")
         pvt_number = request.POST.get("pvt_number")
         clientrep = request.POST.get("clientrep")
-        
-        if request.POST.get('clientrepmail', False):
-            clientrepmail = request.POST.get("clientrepmail")
+        if request.POST.get('mails', False):
+            clientrepmail = request.POST.get("mails")
         else:
-            clientrepmail = None
+             clientrepmail = None
 
-        if request.POST.get('clientrepmail1', False):
-            clientrepmail1 = request.POST.get("clientrepmail1")
-        else:
-            clientrepmail1 = None
-        if request.POST.get('clientrepmail2', False):
-            clientrepmail2 = request.POST.get("clientrepmail2")
-        else:
-            clientrepmail2 = None
-        if request.POST.get('clientrepmail3', False):
-            clientrepmail3 = request.POST.get("clientrepmail3")
-        else:
-            clientrepmail3 = None
-        if request.POST.get('clientrepmail4', False):
-            clientrepmail4 = request.POST.get("clientrepmail4")
-        else:
-            clientrepmail4 = None
-        if request.POST.get('clientrepmail5', False):
-            clientrepmail5 = request.POST.get("clientrepmail5")
-        else:
-            clientrepmail5 = None
-        if request.POST.get('clientrepmail6', False):
-            clientrepmail6 = request.POST.get("clientrepmail6")
-        else:
-            clientrepmail6 = None
-        if request.POST.get('clientrepmail7', False):
-            clientrepmail7 = request.POST.get("clientrepmail7")
-        else:
-            clientrepmail7 = None
-        if request.POST.get('clientrepmail8', False):
-            clientrepmail8 = request.POST.get("clientrepmail8")
-        else:
-            clientrepmail8 = None
-        if request.POST.get('clientrepmail9', False):
-            clientrepmail9 = request.POST.get("clientrepmail9")
-        else:
-            clientrepmail9 = None
-        if request.POST.get('clientrepmail10', False):
-            clientrepmail10 = request.POST.get("clientrepmail10")
-        else:
-            clientrepmail10 = None
-        if request.POST.get('clientrepmail11', False):
-            clientrepmail11 = request.POST.get("clientrepmail11")
-        else:
-            clientrepmail11 = None
-
-        if request.POST.get('copiedemails', False):
-            copiedemails = request.POST.get("copiedemails")
-        else:
-            copiedemails = None
-
-        if request.POST.get('copiedemails1', False):
-            copiedemails1 = request.POST.get("copiedemails1")
-        else:
-            copiedemails1 = None
-        if request.POST.get('copiedemails2', False):
-            copiedemails2 = request.POST.get("copiedemails2")
-        else:
-            copiedemails2 = None
-        if request.POST.get('copiedemails3', False):
-            copiedemails3 = request.POST.get("copiedemails3")
-        else:
-            copiedemails3 = None
-        if request.POST.get('copiedemails4', False):
-            copiedemails4 = request.POST.get("copiedemails4")
-        else:
-            copiedemails4 = None
-        if request.POST.get('copiedemails5', False):
-            copiedemails5 = request.POST.get("copiedemails5")
-        else:
-            copiedemails5 = None
-            
         if request.POST.get('status', False):
             jobstatus = request.POST.get("status")
         else:
@@ -456,8 +387,10 @@ def addjob_save(request):
             jobfile10 = request.FILES.get("jobfile10")
         else:
             jobfile10 = None
-        laser_mails=[copiedemails,copiedemails1,copiedemails2,copiedemails3,copiedemails4,copiedemails5]
-        client_mails=[clientrepmail,clientrepmail1,clientrepmail2,clientrepmail3,clientrepmail4,clientrepmail5,clientrepmail6,clientrepmail7,clientrepmail8,clientrepmail9,clientrepmail10,clientrepmail11]
+        print(clientrepmail)
+        import shlex
+        client_mails=clientrepmail
+        print(client_mails)
         complete = request.POST.get("complete")
         anyotherid= request.POST.get("anyotherid")
         progressreport = request.POST.get("progressreport")
@@ -476,41 +409,32 @@ def addjob_save(request):
         clientpassword = CustomUser.objects.get(id=client).password
         passwordsent = CustomUser.objects.get(id=client).sentpassword
         try:
-            job_model = Dataset(pvt_number=pvt_number, clientrep=clientrep,jobkey=jobkey, anyotherid=anyotherid,pdf=jobfile, pdf2=jobfile2, pdf3=jobfile3, pdf4=jobfile4, pdf5=jobfile5, pdf6=jobfile6,
-                                pdf7=jobfile7, pdf8=jobfile8, pdf9=jobfile9,pdf10=jobfile10,  client_id=client_id, field_id=field_id,jobstatus=jobstatus_id, laserrep_id=laser_rep_id,completed=complete, progressreport=progressreport, file_title=file_title,
-                                file_title2=file_title2, file_title3=file_title3, file_title4=file_title4, file_title5=file_title5, file_title6=file_title6,
-                                file_title7=file_title7, file_title8=file_title8, file_title9=file_title9, file_title10=file_title10, jobstatus1=jobstatus_id1,
-                                jobstatus2=jobstatus_id2,jobstatus3=jobstatus_id3,jobstatus4=jobstatus_id4,clientrep_email=clientrepmail,clientrep_email1=clientrepmail1,clientrep_email2=clientrepmail2,
-                                clientrep_email3=clientrepmail3,clientrep_email4=clientrepmail4,clientrep_email5=clientrepmail5,clientrep_email6=clientrepmail6,clientrep_email7=clientrepmail7,clientrep_email8=clientrepmail8,clientrep_email9=clientrepmail9,
-                                clientrep_email10=clientrepmail10,clientrep_email11=clientrepmail11,copiedemails=copiedemails,copiedemails1=copiedemails1,copiedemails2=copiedemails2,
-                                copiedemails3=copiedemails3,copiedemails4=copiedemails4,copiedemails5=copiedemails5)
+            job_model = Dataset(pvt_number=pvt_number, clientrep=clientrep, jobkey=jobkey, anyotherid=anyotherid,
+                                pdf=jobfile, pdf2=jobfile2, pdf3=jobfile3, pdf4=jobfile4, pdf5=jobfile5, pdf6=jobfile6,
+                                pdf7=jobfile7, pdf8=jobfile8, pdf9=jobfile9, pdf10=jobfile10, client_id=client_id,
+                                field_id=field_id, jobstatus=jobstatus_id, laserrep_id=laser_rep_id, completed=complete,
+                                progressreport=progressreport, file_title=file_title,
+                                file_title2=file_title2, file_title3=file_title3, file_title4=file_title4,
+                                file_title5=file_title5, file_title6=file_title6,
+                                file_title7=file_title7, file_title8=file_title8, file_title9=file_title9,
+                                file_title10=file_title10, jobstatus1=jobstatus_id1,
+                                jobstatus2=jobstatus_id2, jobstatus3=jobstatus_id3, jobstatus4=jobstatus_id4,
+                                clientrep_email=clientrepmail,)
             job_model.save()
             try:
-
                 context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
-                           "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,"file_title":file_title,"file_title2":file_title2,"file_title3":file_title3,"file_title4":file_title4,
-                       "file_title5":file_title5,"file_title6":file_title6,"file_title7":file_title7,"file_title8":file_title8,"file_title9":file_title9,"file_title10":file_title10,"clientname":clientname,}
+                           "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,
+                           "file_title": file_title, "file_title2": file_title2, "file_title3": file_title3,
+                           "file_title4": file_title4,
+                           "file_title5": file_title5, "file_title6": file_title6, "file_title7": file_title7,
+                           "file_title8": file_title8, "file_title9": file_title9, "file_title10": file_title10,
+                           "clientname": clientname, }
                 mail_temp = "admin_templates/email_template.html"
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
                 subject = "Laser Engineering posted a Report to you"
-                recipient = client_mails
-                mail = EmailMessage(subject, mail_msg, mail_from, recipient)
-                mail.content_subtype = 'html'
-                mail.send()
-            except:
-                messages.error(request, "Make sure your internet is connected")
-                return HttpResponseRedirect(reverse("addjob"))
-            try:
-                context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
-                           "jobstatus_id": jobstatus_id,"clientemail": clientemail, "clientpassword": clientpassword,"file_title":file_title,"file_title2":file_title2,"file_title3":file_title3,"file_title4":file_title4,
-                       "file_title5":file_title5,"file_title6":file_title6,"file_title7":file_title7,"file_title8":file_title8,"file_title9":file_title9,"file_title10":file_title10, }
-                mail_temp = "admin_templates/emailcopied_template.html"
-                mail_msg = render_to_string(mail_temp, context=context)
-                mail_from = "labinfo@laser-ng.com"
-                subject = "Laser Engineering Notice for Report sent to Client representative"
-                recipient = laser_mails
-                mail = EmailMessage(subject, mail_msg, mail_from, recipient)
+                mail = EmailMessage(subject, mail_msg, mail_from, [p for p in client_mails.split(",") if len(p) > 0])
+                print(client_mails)
                 mail.content_subtype = 'html'
                 mail.send()
             except:
@@ -520,7 +444,7 @@ def addjob_save(request):
             return HttpResponseRedirect(reverse("managejob"))
         except:
             messages.error(request, "Job add Failed, Make sure to all fields")
-        return HttpResponseRedirect(reverse("addjob"))
+            return HttpResponseRedirect(reverse("addjob"))
 
 def managejob(request):
     Active = Dataset.objects.filter(completed="Active").order_by("-id")
@@ -566,86 +490,12 @@ def editjob_save(request):
         pvt_number = request.POST.get("pvt_number")
         clientrep = request.POST.get("clientrep")
         
-        if request.POST.get('clientrepmail', False):
-            clientrepmail = request.POST.get("clientrepmail")
+        if request.POST.get('mails', False):
+            clientrepmail = request.POST.get("mails")
         else:
             clientrepmail = Dataset.objects.get(id=job_id).clientrep_email
-            
-        if request.POST.get('clientrepmail1', False):
-            clientrepmail1 = request.POST.get("clientrepmail1")
-        else:
-            clientrepmail1 = Dataset.objects.get(id=job_id).clientrep_email1
-        if request.POST.get('clientrepmail2', False):
-            clientrepmail2 = request.POST.get("clientrepmail2")
-        else:
-            clientrepmail2 = Dataset.objects.get(id=job_id).clientrep_email2
-        if request.POST.get('clientrepmail3', False):
-            clientrepmail3 = request.POST.get("clientrepmail3")
-        else:
-            clientrepmail3 = Dataset.objects.get(id=job_id).clientrep_email3
-        if request.POST.get('clientrepmail4', False):
-            clientrepmail4 = request.POST.get("clientrepmail4")
-        else:
-            clientrepmail4 = Dataset.objects.get(id=job_id).clientrep_email4
-        if request.POST.get('clientrepmail5', False):
-            clientrepmail5 = request.POST.get("clientrepmail5")
-        else:
-            clientrepmail5 = Dataset.objects.get(id=job_id).clientrep_email5
-        if request.POST.get('clientrepmail6', False):
-            clientrepmail6 = request.POST.get("clientrepmail6")
-        else:
-            clientrepmail6 = Dataset.objects.get(id=job_id).clientrep_email6
-        if request.POST.get('clientrepmail7', False):
-            clientrepmail7 = request.POST.get("clientrepmail7")
-        else:
-            clientrepmail7 = Dataset.objects.get(id=job_id).clientrep_email7
-        if request.POST.get('clientrepmail8', False):
-            clientrepmail8 = request.POST.get("clientrepmail8")
-        else:
-            clientrepmail8 = Dataset.objects.get(id=job_id).clientrep_email8
-        if request.POST.get('clientrepmail9', False):
-            clientrepmail9 = request.POST.get("clientrepmail9")
-        else:
-            clientrepmail9 = Dataset.objects.get(id=job_id).clientrep_email9
-        if request.POST.get('clientrepmail10', False):
-            clientrepmail10 = request.POST.get("clientrepmail10")
-        else:
-            clientrepmail10 = Dataset.objects.get(id=job_id).clientrep_email10
-        if request.POST.get('clientrepmail11', False):
-            clientrepmail11 = request.POST.get("clientrepmail11")
-        else:
-            clientrepmail11 = Dataset.objects.get(id=job_id).clientrep_email11
 
-        if request.POST.get('copiedemails', False):
-            copiedemails = request.POST.get("copiedemails")
-        else:
-            copiedemails = Dataset.objects.get(id=job_id).copiedemails
-
-        if request.POST.get('copiedemails1', False):
-            copiedemails1 = request.POST.get("copiedemails1")
-        else:
-            copiedemails1 = Dataset.objects.get(id=job_id).copiedemails1
-        if request.POST.get('copiedemails2', False):
-            copiedemails2 = request.POST.get("copiedemails2")
-        else:
-            copiedemails2 = Dataset.objects.get(id=job_id).copiedemails2
-        if request.POST.get('copiedemails3', False):
-            copiedemails3 = request.POST.get("copiedemails3")
-        else:
-            copiedemails3 = Dataset.objects.get(id=job_id).copiedemails3
-        if request.POST.get('copiedemails4', False):
-            copiedemails4 = request.POST.get("copiedemails4")
-        else:
-            copiedemails4 = Dataset.objects.get(id=job_id).copiedemails4
-        if request.POST.get('copiedemails5', False):
-            copiedemails5 = request.POST.get("copiedemails5")
-        else:
-            copiedemails5 = Dataset.objects.get(id=job_id).copiedemails5
-
-        laser_mails = [copiedemails, copiedemails1, copiedemails2, copiedemails3, copiedemails4, copiedemails5]
-        client_mails = [clientrepmail, clientrepmail1, clientrepmail2, clientrepmail3, clientrepmail4, clientrepmail5,
-                        clientrepmail6, clientrepmail7, clientrepmail8, clientrepmail9, clientrepmail10,
-                        clientrepmail11]
+        client_mails = clientrepmail
         jobstatus = request.POST.get("status")
         jobstatus1 = request.POST.get("status1")
         jobstatus2 = request.POST.get("status2")
@@ -730,52 +580,16 @@ def editjob_save(request):
         jobstatus_id3 = JobStatus.objects.get(id=jobstatus3)
         jobstatus_id4 = JobStatus.objects.get(id=jobstatus4)
         laser_rep_id = LaserRep.objects.get(id=laser_rep)
-        clientemail = CustomUser.objects.get(id=client).email
         clientname = CustomUser.objects.get(id=client).username
         passwordsent = CustomUser.objects.get(id=client).sentpassword
         print(clientname)
-
-        ###mail part
-        #mail for client rep
-        try:
-            context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep, "jobstatus_id": jobstatus_id,
-                       "clientemail": clientemail, "passwordsent": passwordsent,"file_title":file_title,"file_title2":file_title2,"file_title3":file_title3,"file_title4":file_title4,
-                       "file_title5":file_title5,"file_title6":file_title6,"file_title7":file_title7,"file_title8":file_title8,"file_title9":file_title9,"file_title10":file_title10,"clientname":clientname, }
-            mail_temp = "admin_templates/editjobemail_template.html"
-            mail_msg = render_to_string(mail_temp, context=context)
-            mail_from = "labinfo@laser-ng.com"
-            subject = "Laser Engineering Report posted to you was updated"
-            recipient = client_mails
-            mail = EmailMessage(subject, mail_msg, mail_from, recipient)
-            mail.content_subtype = 'html'
-            mail.send()
-        except:
-            messages.error(request, "Make sure your internet is connected")
-            return HttpResponseRedirect(reverse("editjob", kwargs={"job_id": job_id}))
-        #mail for copied mails
-        try:
-            context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep, "jobstatus_id": jobstatus_id,
-                       "clientemail": clientemail,"file_title":file_title,"file_title2":file_title2,"file_title3":file_title3,"file_title4":file_title4,
-                       "file_title5":file_title5,"file_title6":file_title6,"file_title7":file_title7,"file_title8":file_title8,"file_title9":file_title9,"file_title10":file_title10, }
-            mail_temp = "admin_templates/emaileditcopied_template.html"
-            mail_msg = render_to_string(mail_temp, context=context)
-            mail_from = "labinfo@laser-ng.com"
-            subject = "Laser Engineering Notice for Report Update sent to Client representative"
-            recipient = laser_mails
-            mail = EmailMessage(subject, mail_msg, mail_from, recipient)
-            mail.content_subtype = 'html'
-            mail.send()
-        except:
-            messages.error(request, "Make sure your internet is connected")
-            return HttpResponseRedirect(reverse("editjob", kwargs={"job_id": job_id}))
         try:
             job_model = Dataset.objects.get(id=job_id)
             job_model.pvt_number = pvt_number
             job_model.slug=slug
             job_model.clientrep = clientrep
-            job_model.clientrep_email = clientrepmail
+            job_model.clientrep_email = client_mails
             job_model.jobkey = jobkey
-            job_model.copiedemails = copiedemails
             job_model.pdf = jobfile
             job_model.pdf2 = jobfile2
             job_model.pdf3 = jobfile3
@@ -808,6 +622,24 @@ def editjob_save(request):
             job_model.progressreport=progressreport
             job_model.anyotherid=anyotherid
             job_model.save()
+            try:
+                context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
+                           "jobstatus_id": jobstatus_id,
+                           "passwordsent": passwordsent, "file_title": file_title,
+                           "file_title2": file_title2, "file_title3": file_title3, "file_title4": file_title4,
+                           "file_title5": file_title5, "file_title6": file_title6, "file_title7": file_title7,
+                           "file_title8": file_title8, "file_title9": file_title9, "file_title10": file_title10,
+                           "clientname": clientname, }
+                mail_temp = "admin_templates/editjobemail_template.html"
+                mail_msg = render_to_string(mail_temp, context=context)
+                mail_from = "labinfo@laser-ng.com"
+                subject = "Laser Engineering Report posted to you was updated"
+                mail = EmailMessage(subject, mail_msg, mail_from, [p for p in client_mails.split(",") if len(p) > 0])
+                mail.content_subtype = 'html'
+                mail.send()
+            except:
+                messages.error(request, "Make sure your internet is connected")
+                return HttpResponseRedirect(reverse("editjob", kwargs={"job_id": job_id}))
             messages.success(request, "Job edited successfully")
             return HttpResponseRedirect(reverse("managejob"))
         except:
