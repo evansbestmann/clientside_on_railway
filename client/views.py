@@ -10,14 +10,11 @@ from .models import *
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from .emailbackend import emailbackend
-from django.views.decorators.csrf import csrf_exempt
-
 
 
 def loginpage(request):
     return render(request, "client_app/login.html")
 
-@csrf_exempt
 def dologin(request):
     if request.method!="POST":
         return HttpResponse("<h2>Method not Allowed</h2>")

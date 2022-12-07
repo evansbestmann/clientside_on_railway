@@ -26,7 +26,7 @@ SECRET_KEY="django-insecure-o_(8gg3ifh8mt6z@!5+&4ushdbipo!zq8p6o46uxpqy=u=-y$b"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =True
 
-#CSRF_TRUSTED_ORIGINS = ["https://clientsideonrailway-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://clientsideonrailway-production.up.railway.app"]
 # ALLOWED_HOSTS = ['127.0.0.1','localhost','0.0.0.0','laser-datashare.herokuapp.com']
 ALLOWED_HOSTS = ["*"]
 # Application definition 
