@@ -103,14 +103,7 @@ def transcation(request):
         pvt_number = Dataset.objects.get(id=job_id).pvt_number
         clientrep = Dataset.objects.get(id=job_id).clientrep
         jobstatus_id = Dataset.objects.get(id=job_id).jobstatus_id
-        clientrepmail = Dataset.objects.get(id=job_id).clientrep_email
-        copiedemails = Dataset.objects.get(id=job_id).copiedemails
-        copiedemails1 = Dataset.objects.get(id=job_id).copiedemails1
-        copiedemails2 = Dataset.objects.get(id=job_id).copiedemails2
-        copiedemails3 = Dataset.objects.get(id=job_id).copiedemails3
-        copiedemails4 = Dataset.objects.get(id=job_id).copiedemails4
-        copiedemails5 = Dataset.objects.get(id=job_id).copiedemails5
-        laser_mails = [copiedemails, copiedemails1, copiedemails2, copiedemails3, copiedemails4, copiedemails5]
+        laser_mails = ['info@laser-ng.com','md@laser-ng.com',]
 
         try:
             paymentset = Payment(job_id=job, email=email,amount=amount, slug=slug)
@@ -122,8 +115,7 @@ def transcation(request):
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
                 subject = "Laser Engineering to receive Payment"
-                recipient = laser_mails
-                mail = EmailMessage(subject, mail_msg, mail_from, recipient)
+                mail = EmailMessage(subject, mail_msg, mail_from, laser_mails)
                 mail.content_subtype = 'html'
                 mail.send()
             except:
@@ -203,40 +195,36 @@ def feedback_save(request):
         n5= int(staff_performance)
         n6= int(complaint_response)
         score = n1+n2+n3+n4+n5+n6
-        copiedemails = Dataset.objects.get(id=job_id).copiedemails
-        copiedemails1 = Dataset.objects.get(id=job_id).copiedemails1
-        copiedemails2 = Dataset.objects.get(id=job_id).copiedemails2
-        copiedemails3 = Dataset.objects.get(id=job_id).copiedemails3
-        copiedemails4 = Dataset.objects.get(id=job_id).copiedemails4
-        copiedemails5 = Dataset.objects.get(id=job_id).copiedemails5
-        laser_mails = [copiedemails, copiedemails1, copiedemails2, copiedemails3, copiedemails4, copiedemails5]
+        laser_mails = ['info@laser-ng.com','md@laser-ng.com',]
         #print(score)
         try:
-            job_id=Dataset.objects.get(id=job_id)
-            feedback_model = FeedBackClient(job_id=job_id,client=client_id,address=address,descrition_of_service=service,
-                                       analysis_and_report=analysis_and_report,job_schedule=job_schedule,staff_performance=staff_performance,
-                                       job_price=job_price,recommend_us=recommend_us,complaint_response=complaint_response,score=score,
-                                       rejected_services=rejected_services,rejected_services_comment=rejected_services_comment,pvt_number=job,
-                                       comment=comment,laser_rep=laser_rep,client_rep=client_rep,client_rep_designation=client_rep_designation,slug=slug)
+            job_id = Dataset.objects.get(id=job_id)
+            feedback_model = FeedBackClient(job_id=job_id, client=client_id, address=address, descrition_of_service=service,
+                                            analysis_and_report=analysis_and_report, job_schedule=job_schedule,
+                                            staff_performance=staff_performance,
+                                            job_price=job_price, recommend_us=recommend_us,
+                                            complaint_response=complaint_response, score=score,
+                                            rejected_services=rejected_services,
+                                            rejected_services_comment=rejected_services_comment, pvt_number=job,
+                                            comment=comment, laser_rep=laser_rep, client_rep=client_rep,
+                                            client_rep_designation=client_rep_designation, slug=slug)
             feedback_model.save()
             try:
-                ### payment confirm client mail
-                context = {"pvt_number": job_id, "clientrep": client_rep, }
-                mail_temp = "client_templates/feedbackemail_template.html"
-                mail_msg = render_to_string(mail_temp, context=context)
-                mail_from = "labinfo@laser-ng.com"
-                subject = "Laser Engineering Recieved Feedback"
-                recipient = laser_mails
-                mail = EmailMessage(subject, mail_msg, mail_from, recipient)
-                mail.content_subtype = 'html'
-                mail.send()
+                    context = {"pvt_number": job, "clientrep": client_rep, }
+                    mail_temp = "client_templates/feedbackemail_template.html"
+                    mail_msg = render_to_string(mail_temp, context=context)
+                    mail_from = "labinfo@laser-ng.com"
+                    subject = "Laser Engineering Recieved Feedback"
+                    mail = EmailMessage(subject, mail_msg, mail_from, laser_mails)
+                    mail.content_subtype = 'html'
+                    mail.send()
             except:
                 messages.error(request, "Make sure your internet is connected")
                 return HttpResponseRedirect(reverse("error"))
             return HttpResponseRedirect(reverse("viewjob"))
         except:
-            messages.error(request, "Failed to send  Feedback")
-            return HttpResponseRedirect(reverse( "jobfeedback",kwargs={"job_id": slug}))
+          messages.error(request, "Failed to send  Feedback")
+        return HttpResponseRedirect(reverse( "jobfeedback",kwargs={"job_id": slug}))
 
 def completedjobs(request):
     jobs = Dataset.objects.filter(client_id=request.user.id).order_by("-id")
