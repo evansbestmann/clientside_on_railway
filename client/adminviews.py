@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
-#from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.core.mail import EmailMessage,send_mail
 from django.template.loader import render_to_string
