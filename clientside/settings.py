@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = config('SECRET_KEY')
 SECRET_KEY="django-insecure-o_(8gg3ifh8mt6z@!5+&4ushdbipo!zq8p6o46uxpqy=u=-y$b"
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =True
+DEBUG =False
 
 #CSRF_TRUSTED_ORIGINS = ["https://clientsideonrailway-production.up.railway.app"]
 # ALLOWED_HOSTS = ['127.0.0.1','localhost','0.0.0.0','laser-datashare.herokuapp.com']
@@ -157,8 +157,8 @@ AUTHENTICATION_BACKENDS=["client.emailbackend.emailbackend"]
 # ENCRYPT_KEY = b'miCRu6xkb-MqyXLETJEYy3dmzcCuwzVNDjMjr7n2-q8='
 #mailjet
 EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
-MAILJET_API_KEY = '3332e36f0e54de45472961d7e1177e57'
-MAILJET_API_SECRET = '8e1944333cf526d815923463b82c64bb'
+MAILJET_API_KEY= os.environ.get("MAILJET_API_KEY")
+MAILJET_API_SECRET=os.environ.get("MAILJET_API_SECRET")
 
 #paystack section
 PAYSTACK_PUBLIC_KEY = os.environ.get("PAYSTACK_PUBLIC_KEY")

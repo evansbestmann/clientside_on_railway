@@ -12,8 +12,6 @@ from django.template.loader import render_to_string
 from mailjet_rest import Client
 from .models import *
 
-from post_office import mail
-
 def admin_home(request):
     return render (request,"admin_templates/home_content.html")
 
