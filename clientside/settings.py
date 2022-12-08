@@ -28,7 +28,7 @@ DEBUG =False
 
 CSRF_TRUSTED_ORIGINS = ["https://clientsideonrailway-production.up.railway.app"]
 # ALLOWED_HOSTS = ['127.0.0.1','localhost','0.0.0.0','laser-datashare.herokuapp.com']
-ALLOWED_HOSTS = ["*","clientsideonrailway-production.up.railway.app",]
+ALLOWED_HOSTS = ["*"]
 # Application definition 
 
 INSTALLED_APPS = [
