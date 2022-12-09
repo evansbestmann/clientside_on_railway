@@ -304,6 +304,7 @@ def addjob_save(request):
         field = request.POST.get("field_id")
         pvt_number = request.POST.get("pvt_number")
         clientrep = request.POST.get("clientrep")
+
         if request.POST.get('mails', False):
             clientrepmail = request.POST.get("mails")
         else:
@@ -313,23 +314,29 @@ def addjob_save(request):
             jobstatus = request.POST.get("status")
         else:
             jobstatus = JobStatus.objects.get(id=1).id
+
         if request.POST.get('status1', False):
             jobstatus1 = request.POST.get("status1")
         else:
             jobstatus1 = JobStatus.objects.get(id=1).id
+
         if request.POST.get('status2', False):
             jobstatus2 = request.POST.get("status2")
         else:
             jobstatus2 = JobStatus.objects.get(id=1).id
+
         if request.POST.get('status3', False):
             jobstatus3 = request.POST.get("status3")
         else:
             jobstatus3 = JobStatus.objects.get(id=1).id
+
         if request.POST.get('status4', False):
             jobstatus4 = request.POST.get("status4")
         else:
             jobstatus4 = JobStatus.objects.get(id=1).id
+
         laser_rep = request.POST.get("laser_rep")
+
         jobkey = request.POST.get("jobkey")
 
         file_title = request.POST.get("file_title")
