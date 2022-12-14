@@ -443,7 +443,7 @@ def addjob_save(request):
                     mail_temp = "admin_templates/email_template.html"
                     mail_msg = render_to_string(mail_temp, context=context)
                     mail_from = "labinfo@laser-ng.com"
-                    subject = f"Laser Engineering posted a {pvt_number} Report to you for"
+                    subject = f"Laser Engineering posted {pvt_number} Report to you"
                     mail = EmailMessage(subject, mail_msg, mail_from, [p for p in client_mails.split(",") if len(p) > 0])
                     print(client_mails)
                     mail.content_subtype = 'html'
