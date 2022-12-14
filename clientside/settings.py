@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = config('SECRET_KEY')
-SECRET_KEY="django-insecure-o_(8gg3ifh8mt6z@!5+&4ushdbipo!zq8p6o46uxpqy=u=-y$b"
+SECRET_KEY=os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =False
 
@@ -135,7 +135,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 #cloudinary settings
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'laser-datashare',
-    'API_KEY': '269866664547265',
+    'API_KEY': os.environ.get("API_KEY"),
     'API_SECRET': 'RPvGWckGbJJMIKcHt8uZD3mgSj4'
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'#cloudinary settings
@@ -159,6 +159,8 @@ AUTHENTICATION_BACKENDS=["client.emailbackend.emailbackend"]
 EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
 MAILJET_API_KEY= os.environ.get("MAILJET_API_KEY")
 MAILJET_API_SECRET=os.environ.get("MAILJET_API_SECRET")
+# MAILJET_API_KEY='3332e36f0e54de45472961d7e1177e57'
+# MAILJET_API_SECRET='8e1944333cf526d815923463b82c64bb'
 
 
 #paystack section

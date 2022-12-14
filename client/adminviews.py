@@ -306,9 +306,14 @@ def addjob_save(request):
         clientrep = request.POST.get("clientrep")
 
         if request.POST.get('mails', False):
-            clientrepmail = request.POST.get("mails")
+         clientrepmail = request.POST.get("mails")
         else:
-             clientrepmail = None
+            clientrepmail = None
+
+        if request.POST.get('lasermails', False):
+         copiedmail = request.POST.get("lasermails")
+        else:
+            copiedmail = None
 
         if request.POST.get('status', False):
             jobstatus = request.POST.get("status")
@@ -394,6 +399,7 @@ def addjob_save(request):
         print(clientrepmail)
         import shlex
         client_mails=clientrepmail
+        laser_mails=copiedmail
         print(client_mails)
         complete = request.POST.get("complete")
         anyotherid= request.POST.get("anyotherid")
@@ -412,6 +418,7 @@ def addjob_save(request):
         print(clientname)
         clientpassword = CustomUser.objects.get(id=client).password
         passwordsent = CustomUser.objects.get(id=client).sentpassword
+
         try:
             job_model = Dataset(pvt_number=pvt_number, clientrep=clientrep, jobkey=jobkey, anyotherid=anyotherid,
                                 pdf=jobfile, pdf2=jobfile2, pdf3=jobfile3, pdf4=jobfile4, pdf5=jobfile5, pdf6=jobfile6,
@@ -423,27 +430,36 @@ def addjob_save(request):
                                 file_title7=file_title7, file_title8=file_title8, file_title9=file_title9,
                                 file_title10=file_title10, jobstatus1=jobstatus_id1,
                                 jobstatus2=jobstatus_id2, jobstatus3=jobstatus_id3, jobstatus4=jobstatus_id4,
-                                clientrep_email=clientrepmail,)
+                                clientrep_email=clientrepmail,copied_email=copiedmail)
             job_model.save()
             try:
-                context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
-                           "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,
-                           "file_title": file_title, "file_title2": file_title2, "file_title3": file_title3,
-                           "file_title4": file_title4,
-                           "file_title5": file_title5, "file_title6": file_title6, "file_title7": file_title7,
-                           "file_title8": file_title8, "file_title9": file_title9, "file_title10": file_title10,
-                           "clientname": clientname, }
-                mail_temp = "admin_templates/email_template.html"
-                mail_msg = render_to_string(mail_temp, context=context)
-                mail_from = "labinfo@laser-ng.com"
-                subject = "Laser Engineering posted a Report to you"
-                mail = EmailMessage(subject, mail_msg, mail_from, [p for p in client_mails.split(",") if len(p) > 0])
-                print(client_mails)
-                mail.content_subtype = 'html'
-                mail.send()
+                    context = {"pvt_number": pvt_number, "jobkey": jobkey, "clientrep": clientrep,
+                               "jobstatus_id": jobstatus_id, "clientemail": clientemail, "passwordsent": passwordsent,
+                               "file_title": file_title, "file_title2": file_title2, "file_title3": file_title3,
+                               "file_title4": file_title4,
+                               "file_title5": file_title5, "file_title6": file_title6, "file_title7": file_title7,
+                               "file_title8": file_title8, "file_title9": file_title9, "file_title10": file_title10,
+                               "clientname": clientname,"complete":complete, }
+                    mail_temp = "admin_templates/email_template.html"
+                    mail_msg = render_to_string(mail_temp, context=context)
+                    mail_from = "labinfo@laser-ng.com"
+                    subject = f"Laser Engineering posted a {pvt_number} Report to you for"
+                    mail = EmailMessage(subject, mail_msg, mail_from, [p for p in client_mails.split(",") if len(p) > 0])
+                    print(client_mails)
+                    mail.content_subtype = 'html'
+                    mail.send()
+                    mail_templaser = "admin_templates/emailcopied_template.html"
+                    mail_msglaser = render_to_string(mail_templaser, context=context)
+                    mail_fromlaser = "labinfo@laser-ng.com"
+                    subjectlaser = f"Laser Engineering posted a {pvt_number} Report to {clientname} Representatives"
+                    mail = EmailMessage(subjectlaser, mail_msglaser, mail_fromlaser,
+                                        [p for p in copiedmail.split(",") if len(p) > 0])
+                    print(copiedmail)
+                    mail.content_subtype = 'html'
+                    mail.send()
             except:
-                messages.error(request, "Make sure your internet is connected")
-                return HttpResponseRedirect(reverse("addjob"))
+                  messages.error(request, "Make sure your internet is connected")
+                  return HttpResponseRedirect(reverse("addjob"))
             messages.success(request, "Job added successfully")
             return HttpResponseRedirect(reverse("managejob"))
         except:
@@ -498,6 +514,11 @@ def editjob_save(request):
             clientrepmail = request.POST.get("mails")
         else:
             clientrepmail = Dataset.objects.get(id=job_id).clientrep_email
+
+        if request.POST.get('lasermails', False):
+         copiedmail = request.POST.get("lasermails")
+        else:
+            copiedmail = Dataset.objects.get(id=job_id).copied_email
 
         client_mails = clientrepmail
         jobstatus = request.POST.get("status")
@@ -593,6 +614,7 @@ def editjob_save(request):
             job_model.slug=slug
             job_model.clientrep = clientrep
             job_model.clientrep_email = client_mails
+            job_model.copied_email = copiedmail
             job_model.jobkey = jobkey
             job_model.pdf = jobfile
             job_model.pdf2 = jobfile2
@@ -633,12 +655,21 @@ def editjob_save(request):
                            "file_title2": file_title2, "file_title3": file_title3, "file_title4": file_title4,
                            "file_title5": file_title5, "file_title6": file_title6, "file_title7": file_title7,
                            "file_title8": file_title8, "file_title9": file_title9, "file_title10": file_title10,
-                           "clientname": clientname, }
+                           "clientname": clientname,"complete":complete, }
                 mail_temp = "admin_templates/editjobemail_template.html"
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
-                subject = "Laser Engineering Report posted to you was updated"
+                subject = f"Laser Engineering Report for {pvt_number} posted to you was updated"
                 mail = EmailMessage(subject, mail_msg, mail_from, [p for p in client_mails.split(",") if len(p) > 0])
+                mail.content_subtype = 'html'
+                mail.send()
+                mail_templaser = "admin_templates/emaileditcopied_template.html"
+                mail_msglaser = render_to_string(mail_templaser, context=context)
+                mail_fromlaser = "labinfo@laser-ng.com"
+                subjectlaser = f"Laser Engineering posted a {pvt_number} Report to {clientname} Representatives was updated"
+                mail = EmailMessage(subjectlaser, mail_msglaser, mail_fromlaser,
+                                    [p for p in copiedmail.split(",") if len(p) > 0])
+                print(copiedmail)
                 mail.content_subtype = 'html'
                 mail.send()
             except:
