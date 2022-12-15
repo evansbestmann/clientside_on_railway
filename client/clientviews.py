@@ -103,7 +103,7 @@ def transcation(request):
         pvt_number = Dataset.objects.get(id=job_id).pvt_number
         clientrep = Dataset.objects.get(id=job_id).clientrep
         jobstatus_id = Dataset.objects.get(id=job_id).jobstatus_id
-        laser_mails = ['info@laser-ng.com','md@laser-ng.com',]
+        laser_mails = Dataset.objects.get(id=job_id).copied_email
 
         try:
             paymentset = Payment(job_id=job, email=email,amount=amount, slug=slug)
@@ -115,7 +115,7 @@ def transcation(request):
                 mail_msg = render_to_string(mail_temp, context=context)
                 mail_from = "labinfo@laser-ng.com"
                 subject = "Laser Engineering to receive Payment"
-                mail = EmailMessage(subject, mail_msg, mail_from, laser_mails)
+                mail = EmailMessage(subject, mail_msg, mail_from, [p for p in laser_mails.split(",") if len(p) > 0])
                 mail.content_subtype = 'html'
                 mail.send()
             except:
@@ -195,7 +195,7 @@ def feedback_save(request):
         n5= int(staff_performance)
         n6= int(complaint_response)
         score = n1+n2+n3+n4+n5+n6
-        laser_mails = ['info@laser-ng.com','md@laser-ng.com',]
+        laser_mails = Dataset.objects.get(id=job_id).copied_email
         #print(score)
         try:
             job_id = Dataset.objects.get(id=job_id)
@@ -215,7 +215,7 @@ def feedback_save(request):
                     mail_msg = render_to_string(mail_temp, context=context)
                     mail_from = "labinfo@laser-ng.com"
                     subject = "Laser Engineering Recieved Feedback"
-                    mail = EmailMessage(subject, mail_msg, mail_from, laser_mails)
+                    mail = EmailMessage(subject, mail_msg, mail_from, [p for p in laser_mails.split(",") if len(p) > 0])
                     mail.content_subtype = 'html'
                     mail.send()
             except:
